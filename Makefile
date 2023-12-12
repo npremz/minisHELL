@@ -5,7 +5,7 @@ CFLAGS		:= 	-Wall -Wextra -Werror
 
 SRC			:=	main.c \
 				ft_create_token_list.c ft_tokenizer_utils.c ft_token_quote.c ft_token_free.c \
-				ft_check_token_list_validity.c ft_parenthesis_redirection.c
+				ft_check_token_list_validity.c ft_parenthesis_redirection.c ft_create_cmd_list.c
 
 SRCS		:= $(addprefix ./srcs/, $(SRC))
 OBJ 		:= $(SRCS:.c=.o)

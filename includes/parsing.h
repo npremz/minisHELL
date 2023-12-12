@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/12 01:30:14 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:05:30 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ typedef enum e_token_type
 	redirection_here_doc
 }	t_token_type;
 
+typedef enum e_cmd_type
+{
+	classic_cmd,
+	assignation_cmd,
+	pipe_operator_cmd,
+	or_operator_cmd,
+	and_operator_cmd,
+	left_parenthesis_cmd,
+	right_parenthesis_cmd
+}	t_cmd_type;
+	
 typedef struct s_token
 {
 	char			*value;
@@ -39,6 +50,7 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
+	t_cmd_type		type;
 	char			*name;
 	char			**arg;
 	t_token_type	type_in;
@@ -73,6 +85,8 @@ int				ft_double_quote(char **command_line, int *cursor_pos,
 
 int				ft_check_cmd_validity(t_list *token_list);
 int				ft_check_redirection_validity(t_list *token_list);
+
+int				ft_create_cmd_list(t_list *token_list, t_list **cmd_list);
 
 int				ft_parenthesis_redirection(t_list *token_list);
 
