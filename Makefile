@@ -3,13 +3,18 @@ NAME		:= parsing
 COMP		:= 	cc
 CFLAGS		:= 	-Wall -Wextra -Werror
 
-SRC			:=	main.c \
-				ft_create_token_list.c ft_tokenizer_utils.c ft_token_quote.c ft_token_free.c \
-				ft_check_token_list_validity.c ft_parenthesis_redirection.c ft_create_cmd_list.c
+SRC			:=	main.c ft_exec_cmd_line.c \
+				ft_create_token_list.c ft_set_word_token.c \
+				ft_set_operator_token.c ft_set_token_value.c \
+				ft_token_quote.c ft_token_type_bool.c \
+				ft_unclosed_command_line.c ft_token_parenthesis.c \
+				ft_create_cmd_list.c ft_set_cmd.c ft_set_cmd_utils.c \
+				ft_create_cmd_tree.c ft_exec_cmd_tree.c ft_launch_exec.c\
+				ft_exec.c ft_exit_child.c ft_token_free.c ft_cmd_free.c
 
 SRCS		:= $(addprefix ./srcs/, $(SRC))
 OBJ 		:= $(SRCS:.c=.o)
-INC			:= parsing.h
+INC			:= parsing_exec.h
 INCS		:= $(addprefix ./includes/, $(INC))
 
 LIBNAME = libft/libft.a

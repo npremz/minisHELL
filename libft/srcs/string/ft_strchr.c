@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 16:30:13 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/10 04:40:44 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:26:38 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	if (s == NULL)
-		return (NULL);
 	while (*s)
 	{
 		if (*s == (char)c)

@@ -6,11 +6,11 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 01:49:42 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/10 08:08:10 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing.h"
+#include "../includes/parsing_exec.h"
 
 static int	ft_check_for_quote(char **command_line, int cursor_pos, char quote)
 {
@@ -48,11 +48,7 @@ static int	ft_single_quote_routine(char *command_line,
 
 	token_begin_pos = *cursor_pos;
 	while (command_line[*cursor_pos] != '\'')
-	{
-		if (command_line[*cursor_pos] == '*')
-			token->have_wildcard = true;
 		(*cursor_pos)++;
-	}
 	if (ft_set_token_value(command_line, token_begin_pos,
 			*cursor_pos, token))
 		return (EXIT_FAILURE);
@@ -82,8 +78,6 @@ static int	ft_double_quote_routine(char *command_line,
 	token_begin_pos = *cursor_pos;
 	while (command_line[*cursor_pos] != '"')
 	{
-		if (command_line[*cursor_pos] == '*')
-			token->have_wildcard = true;
 		if (command_line[*cursor_pos] == '$')
 			token->have_env_var = true;
 		(*cursor_pos)++;
@@ -108,5 +102,3 @@ int	ft_double_quote(char **command_line, int *cursor_pos,
 	*token_begin_pos = *cursor_pos + 1;
 	return (EXIT_SUCCESS);
 }
-//ameliorer le systeme de env_var, car certains peut etre
-//fonctionellent et dautres non dans un meme mot

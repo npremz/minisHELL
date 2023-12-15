@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_btree_apply_prefix.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 12:06:27 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/13 01:42:17 by lethomas         ###   ########.fr       */
+/*   Created: 2023/09/26 17:57:05 by lethomas          #+#    #+#             */
+/*   Updated: 2023/12/13 01:41:13 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "../../includes/libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-
-# include "struct_enum_libft.h"
-# include "io.h"
-# include "string.h"
-# include "memory.h"
-# include "list.h"
-# include "btree.h"
-# include "other.h"
-
-#endif
+void	ft_btree_apply_prefix(t_btree *root, void (*applyf)(void *))
+{
+	if (!root)
+		return ;
+	(*applyf)(root->item);
+	if (root->left)
+		ft_btree_apply_prefix(root->left, applyf);
+	if (root->right)
+		ft_btree_apply_prefix(root->right, applyf);
+}

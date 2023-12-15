@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_btree_search_item.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 15:48:02 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/13 17:45:47 by lethomas         ###   ########.fr       */
+/*   Created: 2023/09/26 17:57:05 by lethomas          #+#    #+#             */
+/*   Updated: 2023/12/13 01:39:50 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	*ft_btree_search_item(t_btree *root, void *data_ref,
+			int (*cmpf)(void *, void *))
 {
-	t_list	*new_elem;
+	void	*elem_item;
 
-	new_elem = (t_list *)malloc (sizeof (t_list));
-	if (!new_elem)
+	if (!root)
 		return (NULL);
-	new_elem->content = content;
-	new_elem->prev = NULL;
-	new_elem->next = NULL;
-	return (new_elem);
+	if (root->left)
+	{
+		elem_item = ft_btree_search_item(root->left, data_ref, cmpf);
+		if (elem_item)
+			return (elem_item);
+	}
+	if (!(*cmpf)(data_ref, root->item))
+		return (root->item);
+	if (root->right)
+	{
+		elem_item = ft_btree_search_item(root->right, data_ref, cmpf);
+		if (elem_item)
+			return (elem_item);
+	}
+	return (NULL);
 }
