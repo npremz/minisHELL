@@ -6,11 +6,27 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/16 03:07:24 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing_exec.h"
+
+int	ft_set_token_wildcard_list(t_token *token, t_bool is_wildcard_effective)
+{
+	t_list	*new_elem;
+	t_bool	*is_wildcard_effective_alloc;
+
+	is_wildcard_effective_alloc = (t_bool *)malloc(sizeof(t_bool));
+	if (is_wildcard_effective_alloc == NULL)
+		return (EXIT_FAILURE);
+	*is_wildcard_effective_alloc = is_wildcard_effective;
+	new_elem = ft_lstnew(is_wildcard_effective_alloc);
+	if (new_elem == NULL)
+		return (EXIT_FAILURE);
+	ft_lstadd_back(&token->wildcard_list, new_elem);
+	return (EXIT_SUCCESS);
+}
 
 int	ft_set_token_value(char *command_line, int token_begin_pos,
 	int cursor_pos, t_token *token)

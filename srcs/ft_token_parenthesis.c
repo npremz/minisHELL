@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:45:03 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/15 21:53:39 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,7 @@ static void	ft_lstinsert_back_redirection(t_list *elem_receiver,
 	elem_to_insert->next = elem_receiver;
 }
 
-static int	ft_set_receiver_in(t_list *token_list, t_list **elem_receiver_in)
-{
-	*elem_receiver_in = token_list;
-	while (((t_token *)(*elem_receiver_in)->content)->type == left_parenthesis)
-		*elem_receiver_in = (*elem_receiver_in)->next;
-	return (EXIT_SUCCESS);
-}
-
-static int	ft_set_receiver_out(t_list *token_list, t_list **elem_to_insert,
+static void	ft_set_receiver_out(t_list *token_list, t_list **elem_to_insert,
 	t_list **elem_receiver_out)
 {
 	int		counter_parenthesis;
@@ -56,7 +48,6 @@ static int	ft_set_receiver_out(t_list *token_list, t_list **elem_to_insert,
 		}
 		*elem_to_insert = (*elem_to_insert)->next;
 	}
-	return (EXIT_SUCCESS);
 }
 
 static int	ft_move_redirection(t_list *elem_to_insert,
@@ -88,22 +79,42 @@ static int	ft_move_redirection(t_list *elem_to_insert,
 	return (EXIT_SUCCESS);
 }
 
+static void	ft_set_receiver_in(t_list **token_list, t_list **elem_receiver_in)
+{
+	int	counter_parenthesis;
+
+	counter_parenthesis = 1;
+	*token_list = (*token_list)->prev;
+	while (counter_parenthesis != 0)
+	{
+		if (((t_token *)(*token_list)->content)->type == left_parenthesis)
+			counter_parenthesis--;
+		if (((t_token *)(*token_list)->content)->type == right_parenthesis)
+			counter_parenthesis++;
+		if (counter_parenthesis != 0)
+			*token_list = (*token_list)->prev;
+	}
+	*elem_receiver_in = *token_list;
+	while (((t_token *)(*elem_receiver_in)->content)->type == left_parenthesis)
+		*elem_receiver_in = (*elem_receiver_in)->next;
+}
+
 int	ft_token_parenthesis(t_list *token_list)
 {
 	t_list	*elem_receiver_in;
 	t_list	*elem_receiver_out;
 	t_list	*elem_to_insert;
+	t_list	*token_list_temp;
 
 	while (token_list != NULL)
 	{
-		if (((t_token *)token_list->content)->type == left_parenthesis)
+		if (((t_token *)token_list->content)->type == right_parenthesis)
 		{
-			if (ft_set_receiver_in(token_list, &elem_receiver_in))
-				return (EXIT_FAILURE);
+			token_list_temp = token_list;
+			ft_set_receiver_in(&token_list_temp, &elem_receiver_in);
 			elem_receiver_out = elem_receiver_in;
-			if (ft_set_receiver_out(token_list, &elem_to_insert,
-					&elem_receiver_out))
-				return (EXIT_FAILURE);
+			ft_set_receiver_out(token_list_temp, &elem_to_insert,
+				&elem_receiver_out);
 			if (ft_move_redirection(elem_to_insert, elem_receiver_in,
 					elem_receiver_out))
 				return (EXIT_FAILURE);

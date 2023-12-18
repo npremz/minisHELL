@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:11:12 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/15 20:33:42 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ static int	ft_look_for_special_char(char *command_line, t_token *token,
 	t_bool is_there_quote, t_bool is_first_char)
 {
 	if (*command_line == '$')
-		token->have_env_var = true;
+		(void)token;
 	if (*command_line == '*')
-		token->have_wildcard = true;
+		if (ft_set_token_wildcard_list(token, true))
+			return (EXIT_FAILURE);
 	if (*command_line == '='
 		&& is_there_quote == false)
 	{

@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 01:49:42 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:40:49 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ static int	ft_single_quote_routine(char *command_line,
 
 	token_begin_pos = *cursor_pos;
 	while (command_line[*cursor_pos] != '\'')
+	{
+		if (command_line[*cursor_pos] == '*')
+			if (ft_set_token_wildcard_list(token, false))
+				return (EXIT_FAILURE);
 		(*cursor_pos)++;
+	}
 	if (ft_set_token_value(command_line, token_begin_pos,
 			*cursor_pos, token))
 		return (EXIT_FAILURE);
@@ -79,7 +84,10 @@ static int	ft_double_quote_routine(char *command_line,
 	while (command_line[*cursor_pos] != '"')
 	{
 		if (command_line[*cursor_pos] == '$')
-			token->have_env_var = true;
+			(void)token;
+		if (command_line[*cursor_pos] == '*')
+			if (ft_set_token_wildcard_list(token, false))
+				return (EXIT_FAILURE);
 		(*cursor_pos)++;
 	}
 	if (ft_set_token_value(command_line, token_begin_pos,

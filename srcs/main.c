@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/16 23:28:44 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,15 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+//heredoc controlD
+//getenv fils de fils
+//parenthese vide
+//homepath si . ou ./ ->voir pour les cas bizarres
+
+// int	main(int argc, char **argv)
+// {
+// 	if (main2(argc, argv))
+// 		return (EXIT_FAILURE);
+// 	system("leaks parsing");
+// 	return (EXIT_SUCCESS);
+// }

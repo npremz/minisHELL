@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:17:36 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/15 21:37:32 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ static int	ft_set_cmd_name(t_list *token_list, t_cmd *cmd,
 	cmd->name = ft_strdup(((t_token *)token_list->content)->value);
 	if (cmd->name == NULL)
 		return (EXIT_FAILURE);
+	ft_lstclear(&cmd->wildcard_name, &free);
+	ft_lstadd_back(&cmd->wildcard_name,
+		((t_token *)token_list->content)->wildcard_list);
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_set_arg_list(t_list *token_list, t_list **cmd_option)
+static int	ft_set_arg_list(t_cmd *cmd, t_list *token_list, t_list **cmd_option)
 {
 	char	*option_value;
 	t_list	*elem_option_list;
@@ -49,6 +52,8 @@ static int	ft_set_arg_list(t_list *token_list, t_list **cmd_option)
 	if (elem_option_list == NULL)
 		return (EXIT_FAILURE);
 	ft_lstadd_back(cmd_option, elem_option_list);
+	ft_lstadd_back(&cmd->wildcard_arg,
+		((t_token *)token_list->content)->wildcard_list);
 	return (EXIT_SUCCESS);
 }
 
@@ -61,7 +66,7 @@ static int	ft_set_cmd_name_option(t_list *token_list, t_cmd *cmd,
 			return (EXIT_FAILURE);
 	}
 	else
-		ft_set_arg_list(token_list, cmd_option);
+		ft_set_arg_list(cmd, token_list, cmd_option);
 	return (EXIT_SUCCESS);
 }
 
@@ -77,7 +82,7 @@ int	ft_set_cmd(t_list *token_list, int cmd_nb_token, t_cmd *cmd)
 	{
 		if (ft_token_is_redirection_op((t_token *)token_list->content))
 		{
-			if (ft_set_cmd_redirection(&token_list, cmd, &cmd_in, &cmd_out))
+			if (ft_set_cmd_redirection(cmd, &token_list, &cmd_in, &cmd_out))
 				return (EXIT_FAILURE);
 			cmd_nb_token--;
 		}

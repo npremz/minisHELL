@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:38:40 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:03:23 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ static int	ft_dup_redirection_in(t_cmd *cmd, char **error_arg)
 		return (EXIT_SUCCESS);
 	while (cmd->in[i] != NULL)
 	{
-		if (cmd->type_in == redirection_in)
+		if (cmd->type_in[i] == redirection_in)
 		{
 			fd_in = open(cmd->in[i], O_RDONLY);
 			if (fd_in < 0)
 				return (*error_arg = ft_strdup(cmd->in[i]), EXIT_FAILURE);
-			if (cmd->in[i + 1] != NULL)
-				if (close(fd_in))
-					return (*error_arg = ft_strdup(cmd->in[i]), EXIT_FAILURE);
 		}
-		i++;
+		else
+			if (ft_redirection_here_doc(&fd_in, cmd->in[i]))
+				return (EXIT_FAILURE);
+		if (cmd->in[i++ + 1] != NULL && close(fd_in))
+			return (*error_arg = ft_strdup(cmd->in[i]), EXIT_FAILURE);
 	}
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		return (EXIT_FAILURE);
@@ -62,7 +63,6 @@ static int	ft_dup_redirection_in(t_cmd *cmd, char **error_arg)
 		return (*error_arg = ft_strdup(cmd->in[i]), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-//gerer le heredoc
 
 static int	ft_dup_redirection_out(t_cmd *cmd, char **error_arg)
 {
@@ -74,10 +74,10 @@ static int	ft_dup_redirection_out(t_cmd *cmd, char **error_arg)
 		return (EXIT_SUCCESS);
 	while (cmd->out[i] != NULL)
 	{
-		if (cmd->type_out == redirection_out)
+		if (cmd->type_out[i] == redirection_out)
 			fd_out = open(cmd->out[i],
 					O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-		if (cmd->type_out == redirection_append)
+		if (cmd->type_out[i] == redirection_append)
 			fd_out = open(cmd->out[i],
 					O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
 		if (fd_out < 0)
@@ -107,11 +107,12 @@ static void	ft_dup_exec(t_cmd *cmd, int *fd_pipe_in, int *fd_pipe_out)
 		ft_exit_child(cmd, fd_pipe_tab, EXIT_FAILURE, error_arg);
 	if (ft_dup_redirection_out(cmd, &error_arg))
 		ft_exit_child(cmd, fd_pipe_tab, EXIT_FAILURE, error_arg);
+	if (cmd->name == NULL)
+		ft_exit_child(cmd, fd_pipe_tab, EXIT_SUCCESS, error_arg);
 	if (ft_exec(cmd, &error_arg))
 		ft_exit_child(cmd, fd_pipe_tab, EXIT_FAILURE, error_arg);
 	ft_exit_child(cmd, fd_pipe_tab, EXIT_SUCCESS, error_arg);
 }
-//free cmd_tree avant exit
 
 int	ft_launch_exec(t_btree *cmd_tree, t_cmd_type operator_out, int **fd_pipe_in,
 	int *pid_child_tab)

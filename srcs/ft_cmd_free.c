@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:05:48 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/16 21:27:56 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@ static void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-static void	ft_free_cmd(void *cmd)
+void	ft_free_cmd(void *cmd)
 {
 	if (cmd == NULL)
 		return ;
 	free(((t_cmd *)cmd)->name);
+	free(((t_cmd *)cmd)->type_in);
+	free(((t_cmd *)cmd)->type_out);
 	ft_free_tab(((t_cmd *)cmd)->arg);
 	ft_free_tab(((t_cmd *)cmd)->in);
 	ft_free_tab(((t_cmd *)cmd)->out);
+	ft_lstclear(&((t_cmd *)cmd)->wildcard_name, &free);
+	ft_lstclear(&((t_cmd *)cmd)->wildcard_arg, &free);
+	ft_lstclear(&((t_cmd *)cmd)->wildcard_in, &free);
+	ft_lstclear(&((t_cmd *)cmd)->wildcard_out, &free);
 	free(cmd);
 }
 
