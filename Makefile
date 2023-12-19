@@ -7,9 +7,10 @@ SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_token_list.c ft_set_word_token.c \
 				ft_set_operator_token.c ft_set_token_value.c \
 				ft_token_quote.c ft_token_type_bool.c \
-				ft_get_wildcard_cmd_list.c ft_set_wildcard_cmd_list.c \
-				ft_set_wildcard_cmd_list_utils.c ft_get_wildcard_value.c \
-				ft_wildcard_cmp.c ft_copy_cmd.c \
+				ft_set_wildcard_for_cmd_list.c \
+				ft_set_wildcard_for_cmd_list_2.c \
+				ft_update_wildcard_bool_list.c \
+				ft_get_wildcard_value.c ft_wildcard_cmp.c \
 				ft_unclosed_command_line.c ft_token_parenthesis.c \
 				ft_create_cmd_list.c ft_set_cmd.c ft_set_cmd_utils.c \
 				ft_create_cmd_tree.c ft_exec_cmd_tree.c ft_launch_exec.c\

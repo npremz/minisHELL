@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:29:11 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/16 03:05:58 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:24:54 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_exec_current_work_directory_path(t_cmd *cmd)
 
 int	ft_exec(t_cmd *cmd, char **error_arg)
 {
-	if (cmd->name[0] == '.')
+	if (ft_strncmp(cmd->name, "./", 2) == 0)
 	{
 		if (ft_exec_current_work_directory_path(cmd))
 			return (EXIT_FAILURE);

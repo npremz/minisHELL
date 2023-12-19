@@ -6,13 +6,13 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:05:48 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/16 21:27:56 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/18 22:00:49 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing_exec.h"
 
-static void	ft_free_tab(char **tab)
+void	ft_free_tab(char **tab)
 {
 	int	i;
 

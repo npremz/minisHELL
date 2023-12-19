@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/16 23:28:44 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 14:11:05 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 //heredoc controlD
 //getenv fils de fils
 //parenthese vide
-//homepath si . ou ./ ->voir pour les cas bizarres
+//./Makefile ne fonctionne pas
 
 // int	main(int argc, char **argv)
 // {
