@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:39:42 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 17:41:29 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:56:02 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_cd(char **args, char **en)
 			ft_printf("%s", pwd);
 	}
 	else if (pwd[0] == '~')
-		pwd = ft_tilde(en);
+		pwd = ft_tilde(en, pwd);
 	if (chdir(pwd) == -1)
 		perror("cd");
 	else 
