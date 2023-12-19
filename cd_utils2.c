@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_init.c                                         :+:      :+:    :+:   */
+/*   cd_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 13:28:29 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 11:47:05 by npremont         ###   ########.fr       */
+/*   Created: 2023/12/19 11:14:05 by npremont          #+#    #+#             */
+/*   Updated: 2023/12/19 11:16:33 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_envinit(char **envp)
+char	*ft_gethome(char **en)
 {
 	size_t	i;
-	char 	**env;
+	char	*pwd;
 
 	i = 0;
-	while (envp[i])
-		++i;
-	env = malloc((sizeof(char *) * i) + 1);
-	i = 0;
-	while (envp[i])
+	while (en[i])
 	{
-		env[i] = ft_strdup(envp[i]);
+		if (ft_strncmp(en[i], "HOME=", 5) == 0)
+			pwd = ft_strdup(en[i] + 5);
 		++i;
 	}
-	env[i] = NULL;
-	return (env);
+	return (pwd);
 }

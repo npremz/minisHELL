@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:40:07 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/18 18:40:21 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:47:16 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@ typedef struct s_globvar
 
 /* ENV INIT */
 
-char		**ft_envinit(char **envp, char **env);
+char		**ft_envinit(char **envp);
 
 /* BUILT INS */
 
 void		ft_pwd(void);
 void		ft_env(char **env_list);
+void		ft_cd(char **args, char **en);
+
+/* CD UTILS */
+
+char		*ft_getpwd(char **en);
 
 /* BUILTINS UTILS */
 
