@@ -6,13 +6,13 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:03:24 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/20 18:18:26 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:53:52 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_sort_tab(char **en)
+static char	**ft_sort_tab(char **en)
 {
 	size_t	i;
 	char	*tmp;
@@ -35,26 +35,27 @@ static void	ft_sort_tab(char **en)
 		}
 		++i;
 	}
-	ft_free_split(en_dup);
+	return (en_dup);
 }
 
 void	ft_display_exp(char **en)
 {
 	size_t	i;
 	size_t	j;
+	char	**sorted;
 
-	ft_sort_tab(en);
+	sorted = ft_sort_tab(en);
 	i = 0;
-	while (en[i])
+	while (sorted[i])
 	{
 		j = 0;
 		write(1, "declare -x ", 12);
-		while (en[i][j] != '=')
-			write(1, &en[i][j++], 1);
-		write(1, &en[i][j++], 1);
+		while (sorted[i][j] != '=')
+			write(1, &sorted[i][j++], 1);
+		write(1, &sorted[i][j++], 1);
 		write(1, "\"", 2);
-		while (en[i][j] != '\0')
-			write(1, &en[i][j++], 1);
+		while (sorted[i][j] != '\0')
+			write(1, &sorted[i][j++], 1);
 		write(1, "\"\n", 3);
 		++i;
 	}
@@ -80,4 +81,33 @@ int	ft_gettype(char *arg)
 		return (2);
 	else
 		return (3);
+}
+
+char	**ft_updatevar_exp(char **en, char *arg)
+{
+	size_t	i;
+	size_t	j;
+	char	*new_line;
+
+	i = 0;
+	while (en[i])
+	{
+		j = 0;
+		while (en[i][j] == arg[j] && en[i][j] != '=' && arg[j] != '+')
+			++j;
+		if (en[i][j] == '=' && arg[j] == '+')
+		{
+			new_line = ft_strjoin(en[i], arg + j + 2);
+			ft_free(en[i]);
+			en[i] = new_line;
+			return (en);
+		}
+		++i;
+	}
+	j = 0;
+	while (arg[j] != '+')
+		++j;
+	arg[j] = '\0';
+	new_line = ft_strjoin(arg, arg + j + 1);
+	return (ft_addvar(en, new_line));
 }
