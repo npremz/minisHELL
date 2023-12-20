@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:39:42 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 18:56:02 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:58:00 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_pwd(void)
 	ft_printf("%s\n", cwd);
 }
 
-void	ft_cd(char **args, char **en)
+void	ft_cd(char **args, char ***en)
 {
 	char	*pwd;
 	char	old_pwd[1024];
@@ -28,22 +28,23 @@ void	ft_cd(char **args, char **en)
 	pwd = args[1];
 	getcwd(old_pwd, sizeof(old_pwd));
 	if (!args[1])
-		pwd = ft_gethome(en);
+		pwd = ft_gethome(*en);
 	else if (args[1][0] == '-' && !args[1][1])
 	{
-		pwd = ft_get_oldpwd(en);
+		pwd = ft_get_oldpwd(*en);
 		if (!pwd)
-		{
-			write(2, "OLDPWD not set\n", 16);
-			perror("cd");
-		}
+			write(2, "cd: OLDPWD not set\n", 20);
 		if (access(pwd, F_OK) == 0)
-			ft_printf("%s", pwd);
+			ft_printf("%s\n", pwd);
 	}
 	else if (pwd[0] == '~')
-		pwd = ft_tilde(en, pwd);
+		pwd = ft_tilde(*en, pwd);
 	if (chdir(pwd) == -1)
 		perror("cd");
 	else 
-		ft_updatepwd(en, pwd, old_pwd);
+	{
+		*en = ft_updatevar(*en, "OLDPWD", old_pwd);
+		getcwd(old_pwd, sizeof(old_pwd));
+		*en = ft_updatevar(*en, "PWD", old_pwd);
+	}
 }

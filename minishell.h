@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:40:07 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 11:47:16 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:43:26 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,25 @@ char		**ft_envinit(char **envp);
 
 void		ft_pwd(void);
 void		ft_env(char **env_list);
-void		ft_cd(char **args, char **en);
+void		ft_cd(char **args, char ***en);
+void		ft_export(char **args, char ***en);
 
 /* CD UTILS */
 
-char		*ft_getpwd(char **en);
+char		*ft_gethome(char **en);
+char		*ft_get_oldpwd(char **en);
+char		*ft_tilde(char **env, char *pwd);
+char		**ft_updatevar(char **en, char *name, char *value);
+char		*ft_getvarline(char **en, char *varname);
 
 /* BUILTINS UTILS */
+
+void		ft_tabdup(char **dst, char **src);
+char		**ft_addvar(char **en, char *var);
+
+/* EPXORT UTILS */
+
+void		ft_display_exp(char **en);
+int			ft_gettype(char *arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 11:36:05 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 11:46:53 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:26:35 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	int		pid;
 	char	**en;
 	char	**test_cd;
+	char	**test_exp;
 
 	en = ft_envinit(envp);
 	if (!en)
@@ -34,8 +35,15 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(line, "cd", 2) == 0)
 		{
 			test_cd = ft_split(line, ' ');
-			ft_cd(test_cd, en);
+			ft_cd(test_cd, &en);
 		}
+		if (ft_strncmp(line, "export", 6) == 0)
+		{
+			test_exp = ft_split(line, ' ');
+			ft_export(test_exp, &en);
+		}
+		if (ft_strncmp(line, "pwd", 3) == 0)
+			ft_pwd();
 		pid = fork();
 		if (pid == -1)
 			return (write(2, "Process error\n", 14), 1);
@@ -47,6 +55,5 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		waitpid(pid, NULL, 0);
 	}
-	ft_free_split(en);
 	return (0);
 }

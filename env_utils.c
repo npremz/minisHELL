@@ -1,50 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_builtins.c                                     :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 15:19:27 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/20 18:27:00 by npremont         ###   ########.fr       */
+/*   Created: 2023/12/19 11:14:05 by npremont          #+#    #+#             */
+/*   Updated: 2023/12/20 13:57:19 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char **env_list)
+void	ft_tabdup(char **dst, char **src)
 {
 	size_t	i;
 
 	i = 0;
-	if (!*env_list)
-		return ;
-	while (env_list[i])
+	while (src[i])
 	{
-		ft_printf("%s\n", env_list[i]);
+		dst[i] = ft_strdup(src[i]);
 		++i;
 	}
+	dst[i] = NULL;
 }
 
-void	ft_export(char **args, char ***en)
+char	**ft_addvar(char **en, char *var)
 {
 	size_t	i;
-	int		type;
+	char	**tmp;
 
-	i = 1;
-	if (!args[1])
-	{
-		ft_display_exp(*en);
-		return ;
-	}
-	while (args[i])
-	{
-		type = ft_gettype(args[i]);
-		printf("%d\n", type);
-	// 	if (type == 1)
-	// 		ft_updatevar_exp(*en, args[i]);
-	// 	else if (type == 2)
-	// 		ft_varjoin(*en, args[i]);
+	i = 0;
+	while (en[i])
 		++i;
-	}
+	tmp = malloc(sizeof(char *) * (i + 2));
+	ft_tabdup(tmp, en);
+	tmp[i] = var;
+	tmp[i + 1] = NULL;
+	ft_free_split(en);
+	return (tmp);
 }

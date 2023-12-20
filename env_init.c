@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:28:29 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 11:47:05 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:16:31 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_envinit(char **envp)
 	i = 0;
 	while (envp[i])
 		++i;
-	env = malloc((sizeof(char *) * i) + 1);
+	env = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (envp[i])
 	{

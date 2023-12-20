@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:30:32 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/19 19:00:56 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:55:56 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,45 @@ char	*ft_tilde(char **env, char *pwd)
 	char	*home;
 
 	home = ft_gethome(env);
-	new = ft_strjoin(home, pwd);
+	new = ft_strjoin(home, pwd + 1);
 	free(home);
 	free(pwd);
 	return (new);
+}
+
+char	*ft_getvarline(char **en, char *varname)
+{
+	size_t	i;
+
+	i = 0;
+	while (en[i])
+	{
+		if (ft_strncmp(en[i], varname, ft_strlen(varname)) == 0)
+			return (en[i]);
+		++i;
+	}
+	return (NULL);
+}
+
+char	**ft_updatevar(char **en, char *name, char *value)
+{
+	size_t	i;
+	char	*varname;
+	char	*varline;
+
+	varname = ft_strjoin(name, "=");
+	varline = ft_strjoin(varname, value);
+	i = 0;
+	while (en[i])
+	{
+		if (ft_strncmp(en[i], varname, ft_strlen(varname)) == 0)
+		{
+			ft_free(en[i]);
+			en[i] = varline;
+			return (free(varname), en);
+		}
+		++i;
+	}
+	free(varname);
+	return (ft_addvar(en, varline));
 }
