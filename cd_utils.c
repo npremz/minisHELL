@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:30:32 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/20 13:55:56 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:54:02 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*ft_tilde(char **env, char *pwd)
 	char	*home;
 
 	home = ft_gethome(env);
+	if (!home)
+		return (NULL);
 	new = ft_strjoin(home, pwd + 1);
 	free(home);
 	free(pwd);

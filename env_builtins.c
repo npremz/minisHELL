@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 15:19:27 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/20 23:56:26 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/21 12:04:23 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,22 @@ void	ft_export(char **args, char ***en)
 	 	else if (type == 2)
 	 		*en = ft_addvar(*en, args[i]);
 		++i;
+	}
+}
+
+void	ft_unset(char **args, char ***en)
+{
+	size_t	i;
+	int		line_pos;
+
+	i = 0;
+	if (!args[1])
+		return ;
+	while (args[i])
+	{
+		line_pos = ft_getline_pos(*en, args[i]);
+		if (line_pos == -1)
+			continue ;
+		
 	}
 }
