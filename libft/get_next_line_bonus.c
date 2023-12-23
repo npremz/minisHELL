@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 09:39:43 by npremont          #+#    #+#             */
-/*   Updated: 2023/11/06 11:41:44 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:37:22 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ static char	*ft_read(char *stash, char **buff, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*buff[OPEN_MAX];
+	static char	*buff[1024];
 	char		*stash;
 
-	if (fd < 0 || read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
+	if (fd < 0 || read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0 || fd >= 1024)
 		return (ft_free_gnl(&buff[fd], 1, NULL), NULL);
 	stash = ft_calloc(1, sizeof(char));
 	if (!stash)

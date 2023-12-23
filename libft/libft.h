@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 14:00:38 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/10 10:42:09 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:44:52 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int		ft_isinstr(char c, char *str);
 int		ft_atoi_base(char *str, char *base);
 void	ft_free(void *ptr);
 void	ft_free_split(char **split);
+void	*ft_realloc(void *ptr, size_t size, int free_ptr);
 
 #endif

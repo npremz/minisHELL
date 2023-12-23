@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 00:53:00 by npremont          #+#    #+#             */
-/*   Updated: 2023/10/18 12:01:39 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/23 18:55:38 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ int	ft_atoi(const char *nptr)
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		nb = nb * 10 + (nptr[i++] - 48);
-		if (last > nb && sign > 0)
-			return (-1);
-		else if (last > nb && sign < 0)
-			return (0);
 		last = nb;
 	}
 	return (nb * sign);

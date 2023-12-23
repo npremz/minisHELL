@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:03:24 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/20 23:53:52 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/23 18:03:02 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_display_exp(char **en)
 		write(1, "\"\n", 3);
 		++i;
 	}
+	ft_free_split(sorted);
 }
 
 int	ft_gettype(char *arg)

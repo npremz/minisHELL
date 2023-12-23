@@ -1,41 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chars.c                                            :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/19 11:01:54 by npremont          #+#    #+#             */
-/*   Updated: 2023/11/06 11:59:51 by npremont         ###   ########.fr       */
+/*   Created: 2023/12/12 10:43:05 by npremont          #+#    #+#             */
+/*   Updated: 2023/12/12 10:53:29 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putchar(char c)
+void	*ft_realloc(void *ptr, size_t size, int free_ptr)
 {
-	if (write(1, &c, 1) == -1)
-		return (-1);
-	return (1);
-}
+	void	*new;
 
-int	ft_putstr(char *str)
-{
-	int		len;
-	char	*nullstr;
-
-	nullstr = "(null)";
-	if (str == NULL)
+	if (!ptr)
 	{
-		len = ft_strlen(nullstr);
-		if (write(1, nullstr, len) == -1)
-			return (-1);
+		new = malloc(size);
+		if (!new)
+			return (NULL);
 	}
 	else
 	{
-		len = ft_strlen(str);
-		if (write(1, str, len) == -1)
-			return (-1);
+		if (sizeof(ptr) < size)
+		{
+			new = malloc(size);
+			if (!new)
+				return (NULL);
+			ft_memcpy(new, ptr, sizeof(ptr));
+			if (free_ptr)
+				free(ptr);
+		}
+		else
+		{
+			new = ptr;
+		}
 	}
-	return (len);
+	return (new);
 }
