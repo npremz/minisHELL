@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:39:42 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/21 11:48:45 by npremont         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:22:34 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_cd(char **args, char ***en)
 		pwd = ft_tilde(*en, pwd);
 	if (chdir(pwd) == -1)
 		perror("cd");
-	else 
+	else
 	{
 		*en = ft_updatevar(*en, "OLDPWD", old_pwd);
 		getcwd(old_pwd, sizeof(old_pwd));
