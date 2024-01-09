@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 15:19:27 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/23 16:48:18 by npremont         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:44:13 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_env(char **env_list)
 		return ;
 	while (env_list[i])
 	{
-		ft_printf("%s\n", env_list[i]);
+		if (ft_strchr(env_list[i], '='))
+			ft_printf("%s\n", env_list[i]);
 		++i;
 	}
 }
@@ -42,7 +43,7 @@ void	ft_export(char **args, char ***en)
 		type = ft_gettype(args[i]);
 		if (type == 1)
 			*en = ft_updatevar_exp(*en, args[i]);
-		else if (type == 2)
+		else if (type == 2 || type == 3)
 			*en = ft_addvar(*en, args[i]);
 		++i;
 	}

@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:03:24 by npremont          #+#    #+#             */
-/*   Updated: 2023/12/23 18:03:02 by npremont         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:52:16 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,23 @@ void	ft_display_exp(char **en)
 	char	**sorted;
 
 	sorted = ft_sort_tab(en);
-	i = 0;
-	while (sorted[i])
+	i = -1;
+	while (sorted[++i])
 	{
 		j = 0;
 		write(1, "declare -x ", 12);
-		while (sorted[i][j] != '=')
+		while (sorted[i][j] != '=' && sorted[i][j] != '\0')
 			write(1, &sorted[i][j++], 1);
+		if (!sorted[i][j])
+		{
+			write(1, "\n", 1);
+			continue ;
+		}
 		write(1, &sorted[i][j++], 1);
 		write(1, "\"", 2);
 		while (sorted[i][j] != '\0')
 			write(1, &sorted[i][j++], 1);
 		write(1, "\"\n", 3);
-		++i;
 	}
 	ft_free_split(sorted);
 }
