@@ -6,11 +6,24 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:38:40 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 19:03:23 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 22:22:59 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing_exec.h"
+
+static int	ft_is_an_ambiguous_red(char *red_name)
+{
+	char	*pt;
+
+	pt = ft_strnstr(red_name, ":ambiguous_redirect", ft_strlen(red_name));
+	if (pt != NULL && pt[ft_strlen(":ambiguous_redirect")] == '\0')
+	{
+		pt[0] = '\0';
+		return (true);
+	}
+	return (false);
+}
 
 static int	ft_dup_pipe(int *fd_pipe_in, int *fd_pipe_out)
 {
@@ -45,6 +58,9 @@ static int	ft_dup_redirection_in(t_cmd *cmd, char **error_arg)
 		return (EXIT_SUCCESS);
 	while (cmd->in[i] != NULL)
 	{
+		if (ft_is_an_ambiguous_red(cmd->in[i]) == true)
+			return (errno = 201, *error_arg = ft_strdup(cmd->in[i]),
+					EXIT_FAILURE);
 		if (cmd->type_in[i] == redirection_in)
 		{
 			fd_in = open(cmd->in[i], O_RDONLY);
@@ -74,6 +90,9 @@ static int	ft_dup_redirection_out(t_cmd *cmd, char **error_arg)
 		return (EXIT_SUCCESS);
 	while (cmd->out[i] != NULL)
 	{
+		if (ft_is_an_ambiguous_red(cmd->out[i]) == true)
+			return (errno = 201, *error_arg = ft_strdup(cmd->out[i]),
+					EXIT_FAILURE);
 		if (cmd->type_out[i] == redirection_out)
 			fd_out = open(cmd->out[i],
 					O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);

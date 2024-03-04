@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/18 22:55:06 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:50:47 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../libft/includes/libft.h"
 
 # define MAX_CWD_PATH_SIZE 256
+# define BREAK 2
 
 typedef enum e_token_type
 {
@@ -124,18 +125,20 @@ int				ft_set_cmd_in_out_arg(t_cmd *cmd, t_list *cmd_in,
 int				ft_set_wildcard_for_cmd_list(t_list *cmd_list);
 int				ft_set_wildcard_for_cmd_name(t_cmd *cmd);
 int				ft_set_wildcard_for_cmd_arg(char *arg_name, t_cmd *cmd);
-void			ft_update_wildcard_bool_list_old_entry(
-					t_list *wildcard_value_list, char *wildcard_name,
+void			ft_update_wildcard_bool_list_old_entry(char *wildcard_name,
 					t_list **wildcard_list);
 int				ft_update_wildcard_bool_list_new_entry(
-					t_list **wildcard_bool_list, char *name,
-					t_bool switch_case);
-t_list			*ft_get_wildcard_value(char *wildcard_path,
-					t_list **wildcard_list);
+					t_list *wildcard_bool_list, char *name,
+					t_list **elem_prev);
+int				ft_get_wildcard_value(char *wildcard_path,
+					t_list **wildcard_bool_list, t_list **path_before);
+int				ft_set_wildcard_name_path(char **path_after,
+					char **wildcard_name, t_list *path_before,
+					t_list **wildcard_bool_list);
+int				ft_update_path_before(t_list **path_before,
+					t_list *wildcard_value_list);
 t_bool			ft_wildcard_cmp(char *with_wildcard, char *without_wildcard,
 					t_list *wildcard_list);
-void			ft_set_end(char *with_wildcard,
-					t_list **wildcard_list, int *end);
 
 int				ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree);
 int				ft_exec_cmd_tree(t_btree *cmd_tree);

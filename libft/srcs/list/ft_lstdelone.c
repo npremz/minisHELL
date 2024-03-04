@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 15:47:42 by lethomas          #+#    #+#             */
-/*   Updated: 2023/11/27 19:26:38 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:02:56 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!lst || !del)
+	if (lst == NULL)
 		return ;
-	if (lst->content)
+	if (del != NULL && lst->content != NULL)
 		(*del)(lst->content);
-	free (lst);
+	free(lst);
 }

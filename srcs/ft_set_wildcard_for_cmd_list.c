@@ -6,20 +6,15 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:36:12 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/18 22:13:03 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:09:00 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing_exec.h"
 
-static int	ft_update_cmd_redirection(char *red_name, char **cmd_red_name,
-	t_list **cmd_red_wild, t_list *new_red)
+static int	ft_update_cmd_redirection(char **cmd_red_name,
+	t_list *new_red, int pos_to_insert)
 {
-	int	pos_to_insert;
-
-	pos_to_insert = 0;
-	while (cmd_red_name[pos_to_insert] != red_name)
-		pos_to_insert++;
 	if (ft_lstsize(new_red) == 1)
 	{
 		free(cmd_red_name[pos_to_insert]);
@@ -35,9 +30,6 @@ static int	ft_update_cmd_redirection(char *red_name, char **cmd_red_name,
 			return (EXIT_FAILURE);
 		ft_lstclear(&new_red, &free);
 	}
-	if (ft_update_wildcard_bool_list_new_entry(cmd_red_wild,
-			cmd_red_name[pos_to_insert], false))
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -45,12 +37,24 @@ static int	ft_set_wildcard_for_cmd_redirection(char *red_name,
 	char **cmd_red_name, t_list **cmd_red_wild)
 {
 	t_list	*new_red;
+	t_list	*wildcard_bool_list_temp;
+	int		pos_to_insert;
 
-	new_red = ft_get_wildcard_value(red_name, cmd_red_wild);
+	pos_to_insert = 0;
+	wildcard_bool_list_temp = (*cmd_red_wild)->prev;
+	while (cmd_red_name[pos_to_insert] != red_name)
+		pos_to_insert++;
+	if (ft_get_wildcard_value(red_name, cmd_red_wild, &new_red))
+		return (EXIT_FAILURE);
 	if (new_red != NULL)
-		if (ft_update_cmd_redirection(red_name, cmd_red_name,
-				cmd_red_wild, new_red))
+		if (ft_update_cmd_redirection(cmd_red_name,
+				new_red, pos_to_insert))
 			return (EXIT_FAILURE);
+	if (ft_update_wildcard_bool_list_new_entry(*cmd_red_wild,
+			cmd_red_name[pos_to_insert], &wildcard_bool_list_temp))
+		return (EXIT_FAILURE);
+	if (*cmd_red_wild == NULL)
+		*cmd_red_wild = wildcard_bool_list_temp;
 	if (*cmd_red_wild != NULL)
 		while ((*cmd_red_wild)->prev != NULL)
 			*cmd_red_wild = (*cmd_red_wild)->prev;

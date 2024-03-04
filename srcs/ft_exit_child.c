@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 00:19:09 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2023/12/19 22:15:11 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static char	*ft_strerror(int errnum)
 		return (strerror(errnum));
 	else if (errnum == 200)
 		return ("command not found");
+	else if (errnum == 201)
+		return ("ambiguous redirect");
 	return ("unknowed code error");
 }
 
