@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_cmd_tree.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 00:20:21 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:36:57 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,3 +99,70 @@ int	ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree)
 	ft_free_cmd_list(cmd_list);
 	return (EXIT_SUCCESS);
 }
+
+// static int	ft_create_cmd_node(t_list *cmd_list, int size_cmd_list,
+// 	t_btree **cmd_tree);
+
+// static void	ft_set_new_list_size(t_list **cmd_list, int *size_cmd_list)
+// {
+// 	int		counter_parenthesis;
+// 	t_list	*cmd_list_new_begin;
+
+// 	counter_parenthesis = 1;
+// 	*cmd_list = (*cmd_list)->next;
+// 	cmd_list_new_begin = *cmd_list;
+// 	*size_cmd_list = 0;
+// 	while (counter_parenthesis != 0)
+// 	{
+// 		if (((t_cmd *)(*cmd_list)->content)->type == left_parenthesis_cmd)
+// 			counter_parenthesis++;
+// 		if (((t_cmd *)(*cmd_list)->content)->type == right_parenthesis_cmd)
+// 			counter_parenthesis--;
+// 		(*cmd_list) = (*cmd_list)->next;
+// 		if (counter_parenthesis != 0)
+// 			(*size_cmd_list)++;
+// 	}
+// 	(*cmd_list) = cmd_list_new_begin;
+// }
+
+// static int	ft_cmd_node_parenthesis(t_list **cmd_list,
+// 	t_btree **cmd_tree, int *new_size_cmd_list)
+// {
+// 	ft_set_new_list_size(cmd_list, new_size_cmd_list);
+// 	if (ft_create_cmd_node(*cmd_list, *new_size_cmd_list, &(*cmd_tree)->left))
+// 		return (EXIT_FAILURE);
+// 	*cmd_list = ft_lstshift(*cmd_list, *new_size_cmd_list + 1);
+// 	*new_size_cmd_list += 2 + (*cmd_list)->content != NULL;
+// 	return (EXIT_SUCCESS);
+// }
+
+// static int	ft_create_cmd_node(t_list *cmd_list, int size_cmd_list,
+// 	t_btree **cmd_tree)
+// {
+// 	int		new_size_cmd_list;
+
+// 	new_size_cmd_list = 1;
+// 	*cmd_tree = ft_btree_create_node(NULL);
+// 	if (*cmd_tree == NULL)
+// 		return (EXIT_FAILURE);
+// 	if (((t_cmd *)cmd_list->content)->type == left_parenthesis_cmd)
+// 		if (ft_cmd_node_parenthesis(&cmd_list, cmd_tree,
+// 				&new_size_cmd_list))
+// 			return (EXIT_FAILURE);
+// 	if (cmd_list != NULL)
+// 		(*cmd_tree)->item = cmd_list->content;
+// 	if (cmd_list == NULL || cmd_list->next == NULL)
+// 		return (EXIT_SUCCESS);
+// 	if (ft_create_cmd_node(cmd_list->next, size_cmd_list - new_size_cmd_list,
+// 			&(*cmd_tree)->right))
+// 		return (EXIT_FAILURE);
+// 	return (EXIT_SUCCESS);
+// }
+
+// int	ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree)
+// {
+// 	if (ft_create_cmd_node(cmd_list, ft_lstsize(cmd_list), cmd_tree))
+// 		return (EXIT_FAILURE);
+// 	ft_free_cmd_list(cmd_list);
+// 	return (EXIT_SUCCESS);
+// }

@@ -30,7 +30,7 @@ all: $(NAME)
 bonus: $(NAME_bonus)
 
 $(NAME): $(LIBNAME) $(OBJ) Makefile
-	@$(COMP) $(CFLAGS) $(OBJ) -o $@ -L $(LIBPATH) -lft
+	@$(COMP) $(CFLAGS) $(OBJ) -fsanitize=address -o $@ -L $(LIBPATH) -lft
 	@echo "\033[0;34m$(NAME) compilation: \033[0;32mOK\033[0;0m"
 
 $(LIBNAME):
