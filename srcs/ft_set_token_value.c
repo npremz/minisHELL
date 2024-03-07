@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_token_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:16:43 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_set_token_env_eff_list(t_token *token, t_bool is_env_effective)
+{
+	t_list	*new_elem;
+	t_bool	*is_env_effective_alloc;
+
+	is_env_effective_alloc = (t_bool *)malloc(sizeof(t_bool));
+	if (is_env_effective_alloc == NULL)
+		return (EXIT_FAILURE);
+	*is_env_effective_alloc = is_env_effective;
+	new_elem = ft_lstnew(is_env_effective_alloc);
+	if (new_elem == NULL)
+		return (EXIT_FAILURE);
+	ft_lstadd_back(&token->env_eff_list, new_elem);
+	return (EXIT_SUCCESS);
+}
 
 int	ft_set_token_wildcard_list(t_token *token, t_bool is_wildcard_effective)
 {

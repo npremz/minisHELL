@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 17:11:48 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:10:02 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 typedef enum e_token_type
 {
 	word,
-	assignation,
 	single_quote,
 	double_quote,
 	pipe_operator,
@@ -47,7 +46,6 @@ typedef enum e_token_type
 typedef enum e_cmd_type
 {
 	classic_cmd,
-	assignation_cmd,
 	pipe_operator_cmd,
 	or_operator_cmd,
 	and_operator_cmd,
@@ -70,6 +68,7 @@ typedef struct s_token
 	char			*value;
 	t_token_type	type;
 	t_list			*wildcard_list;
+	t_list			*env_eff_list;
 }	t_token;
 
 typedef struct s_globvar
@@ -92,13 +91,17 @@ typedef struct s_cmd
 	t_cmd_type		type;
 	char			*name;
 	t_list			*wildcard_name;
+	t_list			*env_eff_name;
 	char			**arg;
 	t_list			*wildcard_arg;
+	t_list			*env_eff_arg;
 	char			**in;
 	t_list			*wildcard_in;
+	t_list			*env_eff_in;
 	t_token_type	*type_in;
 	char			**out;
 	t_list			*wildcard_out;
+	t_list			*env_eff_out;
 	t_token_type	*type_out;
 	t_btree			*root;
 }	t_cmd;
@@ -129,6 +132,8 @@ int				ft_double_quote(char **command_line, int *cursor_pos,
 int				ft_unclosed_command_line(t_token *token, char **command_line,
 					t_error_flag error_flag, int cursor_pos);
 int				ft_set_token_wildcard_list(t_token *token,
+					t_bool is_wildcard_effective);
+int				ft_set_token_env_eff_list(t_token *token,
 					t_bool is_wildcard_effective);
 
 int				ft_token_parenthesis(t_list *token_list);
@@ -183,7 +188,7 @@ void			ft_sighandle(int num);
 t_bool			ft_is_builtin(t_cmd *cmd);
 int				ft_exec_builtin(t_cmd *cmd, t_list **env, int fd, t_bool is_child);
 
-/* BUILTINS 
+/* BUILTINS
 **	Returns -> 1 if failed -> 0 if success
 */
 

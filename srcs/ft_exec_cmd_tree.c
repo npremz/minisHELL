@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:08:28 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 15:32:24 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:12:22 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ static int	ft_exec_cmd_tree_rec(t_btree *cmd_tree, t_cmd_type operator_out,
 	t_cmd_type	new_operator_out;
 
 	do_continue = true;
-	if (((t_cmd *)cmd_tree->item)->type == classic_cmd
-		|| ((t_cmd *)cmd_tree->item)->type == assignation_cmd)
+	if (((t_cmd *)cmd_tree->item)->type == classic_cmd)
 	{
 		if (ft_init_exec(cmd_tree, operator_out, fd_pipe_in, pid_child_tab, env))
 			return (EXIT_FAILURE);

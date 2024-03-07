@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:17:36 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:11:24 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int	ft_set_cmd_name(t_list *token_list, t_cmd *cmd,
 		cmd->type = classic_cmd;
 		*is_cmd_name_yet_set = true;
 	}
-	else if (((t_token *)token_list->content)->type == assignation)
-		cmd->type = assignation_cmd;
 	cmd->name = ft_strdup(((t_token *)token_list->content)->value);
 	if (cmd->name == NULL)
 		return (EXIT_FAILURE);
