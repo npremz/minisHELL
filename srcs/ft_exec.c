@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:29:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:41:34 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:28:44 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	ft_exec_env_path(t_cmd *cmd, t_list **env)
 	if (path_line == NULL)
 		return (EXIT_FAILURE);
 	path_tab = ft_split(path_line, ':');
-	free(path_line);
 	if (path_tab == NULL)
 		return (EXIT_FAILURE);
 	while (path_tab[i] != NULL)

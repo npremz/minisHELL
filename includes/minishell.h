@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 16:26:29 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:11:48 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int				ft_set_cmd_redirection(t_cmd *cmd, t_list **token_list,
 int				ft_set_cmd_in_out_arg(t_cmd *cmd, t_list *cmd_in,
 					t_list *cmd_out, t_list *cmd_option);
 
-int				ft_set_wildcard_for_cmd_list(t_list *cmd_list);
+int				ft_set_wildcard_for_cmd(t_cmd *cmd);
 int				ft_set_wildcard_for_cmd_name(t_cmd *cmd);
 int				ft_set_wildcard_for_cmd_arg(char *arg_name, t_cmd *cmd);
 void			ft_update_wildcard_bool_list_old_entry(char *wildcard_name,

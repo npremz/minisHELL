@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 16:25:03 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:31:29 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ static int	ft_open_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env,
 		return (EXIT_FAILURE);
 	if (fd_in_out[0] != 0 && close(fd_in_out[0]))
 		return (EXIT_FAILURE);
-	if (ft_exec_builtin(cmd, env, fd_in_out[1], is_child))
+	if (ft_exec_builtin(cmd, env, fd_in_out[1], is_child))               //retour du buitlin
 		return (EXIT_FAILURE);
 	if (fd_in_out[1] != 1 && close(fd_in_out[1]))
 		return (EXIT_FAILURE);
@@ -246,6 +246,8 @@ static int	ft_launch_builtin(t_cmd *cmd, int **fd_pipe_in_out,
 int	ft_launch_exec(t_cmd *cmd, int **fd_pipe_in_out,
 	int *pid_child_tab, t_list **env)
 {
+	if (ft_set_wildcard_for_cmd(cmd))
+	 	return (EXIT_FAILURE);
 	if (ft_is_builtin(cmd) == false)
 	{
 		if (ft_launch_builtout(cmd, fd_pipe_in_out, pid_child_tab, env))

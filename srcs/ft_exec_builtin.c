@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:33:40 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/07 16:25:24 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:59:07 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_bool	ft_is_builtin(t_cmd *cmd)
 {
+	if (cmd->name == NULL)
+		return (false);
 	if (ft_strncmp(cmd->name, "cd", 3) == 0)
 		return (true);
 	else if (ft_strncmp(cmd->name, "echo", 5) == 0)

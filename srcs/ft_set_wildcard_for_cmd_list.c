@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:36:12 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:11:01 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static t_bool	ft_has_a_wildcard(char **name, t_list **wildcard_list,
 	return (false);
 }
 
-static int	ft_set_wildcard_for_cmd(t_cmd *cmd)
+int	ft_set_wildcard_for_cmd(t_cmd *cmd)
 {
 	char	*wild_name;
 
@@ -110,16 +110,5 @@ static int	ft_set_wildcard_for_cmd(t_cmd *cmd)
 		&cmd->wildcard_name, &wild_name))
 		if (ft_set_wildcard_for_cmd_name(cmd))
 			return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-int	ft_set_wildcard_for_cmd_list(t_list *cmd_list)
-{
-	while (cmd_list != NULL)
-	{
-		if (ft_set_wildcard_for_cmd((t_cmd *)(cmd_list->content)))
-			return (EXIT_FAILURE);
-		cmd_list = cmd_list->next;
-	}
 	return (EXIT_SUCCESS);
 }

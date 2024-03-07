@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:44:56 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:53:29 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ static int	ft_set_cmd_redirection_tab(t_list *list_cmd,
 		(*cmd_redirection_tab)[i++] = (char *)list_cmd->next->content;
 		temp_elem = list_cmd;
 		list_cmd = list_cmd->next->next;
-		free(temp_elem);
 		free(temp_elem->next);
+		free(temp_elem);
 	}
 	(*cmd_redirection_tab)[i] = NULL;
 	return (EXIT_SUCCESS);

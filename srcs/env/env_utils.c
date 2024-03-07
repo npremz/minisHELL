@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:48:21 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/05 14:00:16 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:23:45 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ size_t	get_en_len(t_list *en)
 	len = 0;
 	while (en)
 	{
-		var = en->content;
-		len += ft_strlen(var->name);
-		len += ft_strlen(var->value);
+		var = (t_globvar *)en->content;
+		if (var->name != NULL)
+			len += ft_strlen(var->name);
+		if (var->value != NULL)
+			len += ft_strlen(var->value);
 		len += 2;
 		en = en->next;
 	}
