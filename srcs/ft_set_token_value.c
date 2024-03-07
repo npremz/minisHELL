@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_token_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/16 03:07:24 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 int	ft_set_token_wildcard_list(t_token *token, t_bool is_wildcard_effective)
 {

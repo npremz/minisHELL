@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_token_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:18:11 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 20:36:21 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static t_error_flag	ft_init_error_flag(void)
 {

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_exec.h                                     :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 14:13:46 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:55 by lethomas         ###   ########.fr       */
+/*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
+/*   Updated: 2024/03/07 16:26:29 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_EXEC_H
-# define PARSING_EXEC_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <fcntl.h>
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
 # include <dirent.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
 
 # include "../libft/includes/libft.h"
 
@@ -69,6 +72,21 @@ typedef struct s_token
 	t_list			*wildcard_list;
 }	t_token;
 
+typedef struct s_globvar
+{
+	char	*name;
+	char	*value;
+	int		is_secret;
+}	t_globvar;
+
+typedef struct s_sig
+{
+	int		sigint;
+	int		sigquit;
+	int		exit_status;
+	pid_t	pid;
+}	t_sig;
+
 typedef struct s_cmd
 {
 	t_cmd_type		type;
@@ -92,7 +110,7 @@ typedef struct s_quote_info
 	int			*cursor_pos;
 }	t_quote_info;
 
-int				ft_exec_cmd_line(char *command_line);
+int				ft_exec_cmd_line(char *command_line, t_list **env);
 
 int				ft_create_token_list(char *command_line, t_list **token_list);
 int				ft_set_word_token(char **command_line, int *cursor_pos,
@@ -141,11 +159,11 @@ t_bool			ft_wildcard_cmp(char *with_wildcard, char *without_wildcard,
 					t_list *wildcard_list);
 
 int				ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree);
-int				ft_exec_cmd_tree(t_btree *cmd_tree);
-int				ft_launch_exec(t_btree *cmd_tree, t_cmd_type operator_out,
-					int **fd_pipe_in, int *pid_child_tab);
+int				ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env);
+int				ft_launch_exec(t_cmd *cmd, int **fd_pipe_in_out,
+					int *pid_child_tab, t_list **env);
 int				ft_redirection_here_doc(int *fd_in, char *delimiter);
-int				ft_exec(t_cmd *cmd, char **error_arg);
+int				ft_exec(t_cmd *cmd, char **error_arg, t_list **env);
 int				ft_exit_child(t_cmd *cmd, int *fd_pipe_tab[2], int status,
 					char *error_arg);
 
@@ -155,5 +173,58 @@ void			ft_free_cmd(void *cmd);
 void			ft_free_cmd_list(t_list *cmd_list);
 void			ft_free_cmd_tree(t_btree *cmd_tree);
 void			ft_free_tab(char **tab);
+
+/* SINGALS HANDLING */
+
+void			ft_sighandle(int num);
+
+/* EXEC BUILINS */
+
+t_bool			ft_is_builtin(t_cmd *cmd);
+int				ft_exec_builtin(t_cmd *cmd, t_list **env, int fd, t_bool is_child);
+
+/* BUILTINS 
+**	Returns -> 1 if failed -> 0 if success
+*/
+
+int				ft_cd(char **args, t_list **en, int fd);
+int				ft_export(char **args, t_list **en, int fd);
+int				ft_export_var(int type, t_list *en, t_globvar *var);
+int				ft_env(t_list *en, int fd);
+int				ft_pwd(int fd);
+int				ft_unset(char **args, t_list **en);
+int				ft_echo(char **args, int fd);
+int				ft_exit(t_list **en, t_bool is_child);
+
+/* ENV init
+** Clean exit if failed
+*/
+
+void			ft_envinit(t_list **en, char **envp);
+
+/* BUILTINS UTILS */
+
+int				ft_get_globvar(char *varline, t_globvar **var);
+int				ft_print_secret(t_list *en, int fd);
+char			**ft_en_to_tab(t_list *en);
+void			ft_print_export(char **en, int fd);
+char			*ft_get_varname(char *varline);
+char			*ft_get_varvalue(char *varline);
+char			*ft_get_gvar_value(char *str, t_list *en);
+
+/* READLINE */
+
+extern void		rl_clear_history(void);
+void 			rl_replace_line(const char *text, int clear_undo);
+
+/* FREE UTILS */
+
+void			ft_envclear(t_list **lst, void (*del)(t_globvar *));
+
+/* ERROR HANDLING */
+
+void			exit_error(char *str, t_list **en, t_globvar *var, int code);
+void			print_error(char *str);
+void			free_globvar(t_globvar *ptr);
 
 #endif

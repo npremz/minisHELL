@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unclosed_command_line.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:07:48 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static int	ft_unclosed_parenthesis(char **command_line,
 	t_error_flag error_flag)

@@ -6,11 +6,11 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 00:20:21 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:57 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:33:43 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static void	ft_set_new_list_size(t_list **cmd_list, int *size_cmd_list,
 	t_bool *is_parenthesis)
@@ -71,6 +71,7 @@ static int	ft_create_cmd_node(t_list *cmd_list, int size_cmd_list,
 	new_size_cmd_list = 1;
 	is_parenthesis = false;
 	*cmd_tree = ft_btree_create_node(NULL);
+	//write(1, "okok\n", 5);
 	if (*cmd_tree == NULL)
 		return (EXIT_FAILURE);
 	if (size_cmd_list == 1)

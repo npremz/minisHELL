@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_wildcard_bool_list.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 21:24:45 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 20:30:48 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static void	ft_add_wildcard_bool_list(t_list *wildcard_bool_list,
 	t_list *new_elem, t_list **elem_prev)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token_parenthesis.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:45:03 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 21:53:39 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static void	ft_lstinsert_back_redirection(t_list *elem_receiver,
 	t_list *elem_to_insert)

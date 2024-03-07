@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_wildcard_for_cmd_list_3.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 21:52:24 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 21:52:57 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static char	**ft_malloc_new_arg_tab(char **tab, t_list *new_args)
 {

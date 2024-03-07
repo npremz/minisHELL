@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_free.c                                    :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 07:25:15 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Created: 2024/02/10 10:36:00 by npremont          #+#    #+#             */
+/*   Updated: 2024/03/07 16:25:48 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	ft_free_token(void *token)
+int	ft_exit(t_list **en, t_bool is_child)
 {
-	if (token == NULL)
-		return ;
-	free(((t_token *)token)->value);
-	free(token);
-}
-
-void	ft_free_token_list(t_list **token_list)
-{
-	ft_lstclear(token_list, &ft_free_token);
+	ft_envclear(en, free_globvar);
+	rl_clear_history();
+	if (is_child == false)
+		write(1, "exit\n", 5);
+	exit(EXIT_SUCCESS);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:17:36 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/18 22:25:16 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static void	ft_init_set_cmd(t_bool *is_cmd_name_yet_set, t_list **cmd_in,
 	t_list **cmd_out, t_list **cmd_option)

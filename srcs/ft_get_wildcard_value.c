@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_wildcard_value.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 02:07:40 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 21:49:32 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static int	ft_add_entry_if_wildcard_cmp(char *wildcard_name,
 	t_list **wildcard_value_list, DIR *dir_flow, t_list *wildcard_bool_list)

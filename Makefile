@@ -1,7 +1,7 @@
-NAME		:= parsing
+NAME		:=  minishell
 
 COMP		:= 	cc
-CFLAGS		:= 	-Wall -Wextra -Werror
+CFLAGS		:= 	-Wall -Wextra -Werror -fsanitize=address -g
 
 SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_token_list.c ft_set_word_token.c \
@@ -15,23 +15,41 @@ SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_cmd_list.c ft_set_cmd.c ft_set_cmd_utils.c \
 				ft_create_cmd_tree.c ft_exec_cmd_tree.c ft_launch_exec.c\
 				ft_redirection_here_doc.c ft_exec.c ft_exit_child.c \
-				ft_token_free.c ft_cmd_free.c
+				ft_token_free.c ft_cmd_free.c ft_exec_builtin.c ft_sighandle.c
+
+BUILTIN		:= cd.c echo.c env.c exit.c export.c pwd.c unset.c
+
+ENV			:= env_init.c env_utils.c error.c free.c
 
 SRCS		:= $(addprefix ./srcs/, $(SRC))
-OBJ 		:= $(SRCS:.c=.o)
-INC			:= parsing_exec.h
+BUILTINS	:= $(addprefix ./srcs/builtins/, $(BUILTIN))
+ENVS		:= $(addprefix ./srcs/env/, $(ENV))
+OBJ 		:= $(SRCS:.c=.o) $(BUILTINS:.c=.o) $(ENVS:.c=.o)
+INC			:= minishell.h
 INCS		:= $(addprefix ./includes/, $(INC))
 
 LIBNAME = libft/libft.a
 LIBPATH = libft/
+
+READLINE = -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
 
 all: $(NAME)
 
 bonus: $(NAME_bonus)
 
 $(NAME): $(LIBNAME) $(OBJ) Makefile
-	@$(COMP) $(CFLAGS) $(OBJ) -fsanitize=address -o $@ -L $(LIBPATH) -lft
-	@echo "\033[0;34m$(NAME) compilation: \033[0;32mOK\033[0;0m"
+	@$(COMP) $(CFLAGS) $(OBJ) -o $@ -L $(LIBPATH) -lft $(READLINE)
+	@echo "\033[0;32m"
+	@echo " ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓    "
+	@echo "▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    "
+	@echo "▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░    "
+	@echo "▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░  ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░    "
+	@echo "▒██▒   ░██▒░██░▒██░   ▓██░░██░▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒"
+	@echo "░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░"
+	@echo "░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░"
+	@echo "░      ░    ▒ ░   ░   ░ ░  ▒ ░░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░   "
+	@echo "       ░    ░           ░  ░        ░   ░  ░  ░   ░  ░    ░  ░    ░  ░"
+	@echo "\033[0m"
 
 $(LIBNAME):
 	@make -C $(LIBPATH) all

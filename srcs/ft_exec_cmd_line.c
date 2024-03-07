@@ -6,11 +6,11 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/05 13:46:52 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:37:57 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static void	printf_cmd(void *cmd)
 {
@@ -50,11 +50,11 @@ static void	printf_cmd(void *cmd)
 	printf("\n");
 }
 
-int	ft_exec_cmd_line(char *command_line)
+int	ft_exec_cmd_line(char *command_line, t_list **env)
 {
 	t_list	*token_list;
 	t_list	*cmd_list;
-	// t_btree	*cmd_tree;
+	t_btree	*cmd_tree;
 
 	token_list = NULL;
 	if (ft_create_token_list(command_line, &token_list))
@@ -66,11 +66,11 @@ int	ft_exec_cmd_line(char *command_line)
 	ft_lstiter(cmd_list, &printf_cmd);
 	// if (ft_set_wildcard_for_cmd_list(cmd_list))
 	// 	return (EXIT_FAILURE);
-	// if (ft_create_cmd_tree(cmd_list, &cmd_tree))
-	// 	return (EXIT_FAILURE);
-	// ft_btree_apply_prefix(cmd_tree, &printf_cmd);
-	// if (ft_exec_cmd_tree(cmd_tree))
-	// 	return (EXIT_FAILURE);
+	if (ft_create_cmd_tree(cmd_list, &cmd_tree))
+		return (EXIT_FAILURE);
+	//ft_btree_apply_prefix(cmd_tree, &printf_cmd);
+	if (ft_exec_cmd_tree(cmd_tree, env))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 //var env

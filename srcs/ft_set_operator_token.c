@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_operator_token.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:14:22 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/15 01:05:36 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static int	ft_operator_token_error_following(t_token *token,
 	t_error_flag *error_flag)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_wildcard_for_cmd_list.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:36:12 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 21:09:00 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static int	ft_update_cmd_redirection(char **cmd_red_name,
 	t_list *new_red, int pos_to_insert)

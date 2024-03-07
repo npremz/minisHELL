@@ -3,28 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 22:07:19 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:58:56 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*arg;
+	char	*line;
+	t_list	*en;
 
-	errno = 0;
-	if (argc != 2)
-		return (EXIT_FAILURE);
-	arg = ft_strdup(argv[1]);
-	if (ft_exec_cmd_line(arg))
-		return (EXIT_FAILURE);
+	(void)argc;
+	(void)argv;
+	line = NULL;
+	en = NULL;
+	ft_envinit(&en, envp);
+	signal(SIGINT, ft_sighandle);
+	while (1)
+	{
+		line = readline("minishell> ");
+		if (line)
+		{
+			add_history(line);
+			ft_exec_cmd_line(line, &en);
+		}
+	}
 	return (EXIT_SUCCESS);
 }
-//heredoc controlD
+
+//heredoc controlD									
 //getenv fils de fils
 //parenthese vide
 //./Makefile ne fonctionne pas

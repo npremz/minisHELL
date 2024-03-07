@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_free.c                                    :+:      :+:    :+:   */
+/*   ft_sighandle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 07:25:15 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Created: 2024/03/07 13:25:51 by npremont          #+#    #+#             */
+/*   Updated: 2024/03/07 13:49:44 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free_token(void *token)
+void	ft_sighandle(int num)
 {
-	if (token == NULL)
-		return ;
-	free(((t_token *)token)->value);
-	free(token);
-}
-
-void	ft_free_token_list(t_list **token_list)
-{
-	ft_lstclear(token_list, &ft_free_token);
+	(void)num;
+	rl_redisplay();
 }

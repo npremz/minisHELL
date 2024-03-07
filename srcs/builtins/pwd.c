@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_free.c                                    :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 07:25:15 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Created: 2024/02/07 16:29:19 by npremont          #+#    #+#             */
+/*   Updated: 2024/03/05 14:02:41 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	ft_free_token(void *token)
+int	ft_pwd(int fd)
 {
-	if (token == NULL)
-		return ;
-	free(((t_token *)token)->value);
-	free(token);
-}
+	char	cwd[1024];
 
-void	ft_free_token_list(t_list **token_list)
-{
-	ft_lstclear(token_list, &ft_free_token);
+	if (getcwd(cwd, 1024))
+	{
+		write(fd, cwd, ft_strlen(cwd));
+		return (EXIT_SUCCESS);
+	}
+	else
+		return (EXIT_FAILURE);
 }

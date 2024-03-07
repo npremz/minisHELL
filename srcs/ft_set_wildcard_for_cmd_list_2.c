@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_wildcard_for_cmd_list_2.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 20:38:04 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 21:52:41 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static void	ft_set_front_first_elem_alpha_order(t_list *list)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildcard_cmp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 23:58:01 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/19 16:10:28 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parsing_exec.h"
+#include "../includes/minishell.h"
 
 static t_bool	ft_cmp_operation(char *with_wildcard, char **without_wildcard,
 	int begin, int end)
