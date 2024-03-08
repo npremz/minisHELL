@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_word_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:11:12 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 19:07:20 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:01:30 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_bool	ft_str_is_an_op(char *command_line)
+t_bool	ft_str_is_an_op(char *command_line)
 {
 	if (command_line[0] == '\0')
 		return (false);
@@ -31,7 +31,7 @@ static t_bool	ft_str_is_an_op(char *command_line)
 static int	ft_look_for_special_char(char *command_line, t_token *token)
 {
 	if (*command_line == '$')
-		if (ft_set_token_env_eff_list(token, true))
+		if (ft_set_token_env_eff_list(command_line, token, true))
 			return (EXIT_FAILURE);
 	if (*command_line == '*')
 		if (ft_set_token_wildcard_list(token, true))
@@ -80,8 +80,12 @@ int	ft_set_word_token(char **command_line, int *cursor_pos, t_token *token,
 		if (ft_look_for_quote(command_line, cursor_pos, token,
 				&token_begin_pos))
 			return (EXIT_FAILURE);
-		if (ft_look_for_special_char(*command_line + (*cursor_pos)++, token))
+		if (ft_look_for_special_char(*command_line + *cursor_pos, token))
 			return (EXIT_FAILURE);
+		if ((*command_line)[*cursor_pos] == '$'
+			&& (*command_line)[*cursor_pos + 1] == '$')
+			(*cursor_pos)++;
+		(*cursor_pos)++;
 	}
 	if (ft_set_token_value(*command_line, token_begin_pos, *cursor_pos, token))
 		return (EXIT_FAILURE);

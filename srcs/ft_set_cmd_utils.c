@@ -6,14 +6,14 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 23:44:56 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 16:53:29 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:50:56 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static int	ft_set_cmd_redirection_list(t_list **wildcard_cmd_list,
-	t_list *token_list, t_list **list_cmd_redirection)
+	t_list *token_list, t_list **list_cmd_redirection, t_list **env_eff_list)
 {
 	t_list			*elem_redirection_list;
 	char			*redirection_value;
@@ -34,6 +34,8 @@ static int	ft_set_cmd_redirection_list(t_list **wildcard_cmd_list,
 	ft_lstadd_back(list_cmd_redirection, elem_redirection_list);
 	ft_lstadd_back(wildcard_cmd_list,
 		((t_token *)token_list->next->content)->wildcard_list);
+	ft_lstadd_back(env_eff_list,
+		((t_token *)token_list->next->content)->env_eff_list);
 	return (EXIT_SUCCESS);
 }
 
@@ -44,12 +46,12 @@ int	ft_set_cmd_redirection(t_cmd *cmd, t_list **token_list,
 		|| ((t_token *)(*token_list)->content)->type == redirection_in)
 	{
 		if (ft_set_cmd_redirection_list(&cmd->wildcard_in, *token_list,
-				list_cmd_in))
+				list_cmd_in, &cmd->env_eff_in))
 			return (EXIT_FAILURE);
 	}
 	else
 		if (ft_set_cmd_redirection_list(&cmd->wildcard_out, *token_list,
-				list_cmd_out))
+				list_cmd_out, &cmd->env_eff_out))
 			return (EXIT_FAILURE);
 	*token_list = (*token_list)->next;
 	return (EXIT_SUCCESS);

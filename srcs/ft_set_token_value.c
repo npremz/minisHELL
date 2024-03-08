@@ -3,25 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_token_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 19:16:43 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/08 13:05:16 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_set_token_env_eff_list(t_token *token, t_bool is_env_effective)
+static int	ft_get_env_name(char *command_line, char **env_name)
+{
+	int	i;
+
+	i = 1;
+	while (command_line[i] != ' ' && ft_str_is_an_op(command_line + i) == false
+		&& command_line[i] != '\0' && command_line[i] != '\"'
+		&& command_line[i] != '\'' && (command_line[i] != '$' || i == 1))
+	{
+		i++;
+		if ((command_line[i - 1] == '?' || command_line[i - 1] == '$')
+			&& i == 2)
+			break;
+	}
+	*env_name = (char *)malloc(sizeof(char) * (i + 1));
+	if (*env_name == NULL)
+		return (EXIT_FAILURE);
+	ft_strlcpy(*env_name, command_line, i + 1);
+	return (EXIT_SUCCESS);
+}
+
+int	ft_set_token_env_eff_list(char *command_line, t_token *token,
+	t_bool is_env_effective)
 {
 	t_list	*new_elem;
-	t_bool	*is_env_effective_alloc;
+	char	*env_name;
 
-	is_env_effective_alloc = (t_bool *)malloc(sizeof(t_bool));
-	if (is_env_effective_alloc == NULL)
-		return (EXIT_FAILURE);
-	*is_env_effective_alloc = is_env_effective;
-	new_elem = ft_lstnew(is_env_effective_alloc);
+	env_name = NULL;
+	if (is_env_effective == true)
+		if (ft_get_env_name(command_line, &env_name))
+			return (EXIT_FAILURE);
+	new_elem = ft_lstnew(env_name);
 	if (new_elem == NULL)
 		return (EXIT_FAILURE);
 	ft_lstadd_back(&token->env_eff_list, new_elem);

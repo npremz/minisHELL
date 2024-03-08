@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 19:10:02 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/08 12:45:42 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,9 @@ int				ft_unclosed_command_line(t_token *token, char **command_line,
 					t_error_flag error_flag, int cursor_pos);
 int				ft_set_token_wildcard_list(t_token *token,
 					t_bool is_wildcard_effective);
-int				ft_set_token_env_eff_list(t_token *token,
+int				ft_set_token_env_eff_list(char *command_line, t_token *token,
 					t_bool is_wildcard_effective);
+t_bool			ft_str_is_an_op(char *command_line);
 
 int				ft_token_parenthesis(t_list *token_list);
 

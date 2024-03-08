@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 01:49:42 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 19:15:43 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/08 12:44:09 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_single_quote_routine(char *command_line,
 	while (command_line[*cursor_pos] != '\'')
 	{
 		if (command_line[*cursor_pos] == '$')
-			if (ft_set_token_env_eff_list(token, false))
+			if (ft_set_token_env_eff_list(command_line, token, false))
 				return (EXIT_FAILURE);
 		if (command_line[*cursor_pos] == '*')
 			if (ft_set_token_wildcard_list(token, false))
@@ -87,7 +87,7 @@ static int	ft_double_quote_routine(char *command_line,
 	while (command_line[*cursor_pos] != '"')
 	{
 		if (command_line[*cursor_pos] == '$')
-			if (ft_set_token_env_eff_list(token, true))
+			if (ft_set_token_env_eff_list(command_line, token, true))
 				return (EXIT_FAILURE);
 		if (command_line[*cursor_pos] == '*')
 			if (ft_set_token_wildcard_list(token, false))

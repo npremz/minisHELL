@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:17:36 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 19:11:24 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:02:51 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,15 @@ static void	ft_init_set_cmd(t_bool *is_cmd_name_yet_set, t_list **cmd_in,
 static int	ft_set_cmd_name(t_list *token_list, t_cmd *cmd,
 	t_bool *is_cmd_name_yet_set)
 {
-	if (((t_token *)token_list->content)->type == word)
-	{
-		cmd->type = classic_cmd;
-		*is_cmd_name_yet_set = true;
-	}
+	*is_cmd_name_yet_set = true;
 	cmd->name = ft_strdup(((t_token *)token_list->content)->value);
 	if (cmd->name == NULL)
 		return (EXIT_FAILURE);
 	ft_lstclear(&cmd->wildcard_name, &free);
 	ft_lstadd_back(&cmd->wildcard_name,
 		((t_token *)token_list->content)->wildcard_list);
+	ft_lstadd_back(&cmd->env_eff_name,
+		((t_token *)token_list->content)->env_eff_list);
 	return (EXIT_SUCCESS);
 }
 
@@ -52,6 +50,8 @@ static int	ft_set_arg_list(t_cmd *cmd, t_list *token_list, t_list **cmd_option)
 	ft_lstadd_back(cmd_option, elem_option_list);
 	ft_lstadd_back(&cmd->wildcard_arg,
 		((t_token *)token_list->content)->wildcard_list);
+	ft_lstadd_back(&cmd->env_eff_arg,
+		((t_token *)token_list->content)->env_eff_list);
 	return (EXIT_SUCCESS);
 }
 
