@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/08 12:45:42 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:02:11 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,18 @@ t_bool			ft_wildcard_cmp(char *with_wildcard, char *without_wildcard,
 
 int				ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree);
 int				ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env);
-int				ft_launch_exec(t_cmd *cmd, int **fd_pipe_in_out,
+int				ft_init_exec(t_btree *cmd_tree, t_cmd_type operator_out,
+					int **fd_pipe_in, int *pid_child_tab, t_list **env);
+int				ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 					int *pid_child_tab, t_list **env);
+int				ft_set_pipe_fd(int *fd_pipe_in_out[2], int fd_in_out[2]);
+int				ft_open_redirection(t_cmd *cmd, char **error_arg,
+					int *fd_in_out);
 int				ft_redirection_here_doc(int *fd_in, char *delimiter);
 int				ft_exec(t_cmd *cmd, char **error_arg, t_list **env);
 int				ft_exit_child(t_cmd *cmd, int *fd_pipe_tab[2], int status,
 					char *error_arg);
+int				ft_display_error(char *arg_error);
 
 void			ft_free_token(void *token);
 void			ft_free_token_list(t_list **token_list);
@@ -187,7 +193,8 @@ void			ft_sighandle(int num);
 /* EXEC BUILINS */
 
 t_bool			ft_is_builtin(t_cmd *cmd);
-int				ft_exec_builtin(t_cmd *cmd, t_list **env, int fd, t_bool is_child);
+int				ft_exec_builtin(t_cmd *cmd, t_list **env, int fd,
+					t_bool is_child);
 
 /* BUILTINS
 **	Returns -> 1 if failed -> 0 if success
@@ -221,7 +228,7 @@ char			*ft_get_gvar_value(char *str, t_list *en);
 /* READLINE */
 
 extern void		rl_clear_history(void);
-void 			rl_replace_line(const char *text, int clear_undo);
+void			rl_replace_line(const char *text, int clear_undo);
 
 /* FREE UTILS */
 

@@ -14,8 +14,9 @@ SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_unclosed_command_line.c ft_token_parenthesis.c \
 				ft_create_cmd_list.c ft_set_cmd.c ft_set_cmd_utils.c \
 				ft_create_cmd_tree.c ft_exec_cmd_tree.c ft_launch_exec.c\
-				ft_redirection_here_doc.c ft_exec.c ft_exit_child.c \
-				ft_token_free.c ft_cmd_free.c ft_exec_builtin.c ft_sighandle.c
+				ft_launch_builtout.c ft_open_redirection.c ft_redirection_here_doc.c \
+				ft_exec.c ft_exit_child.c ft_token_free.c ft_cmd_free.c \
+				ft_exec_builtin.c ft_sighandle.c
 
 BUILTIN		:= cd.c echo.c env.c exit.c export.c pwd.c unset.c
 
@@ -31,7 +32,7 @@ INCS		:= $(addprefix ./includes/, $(INC))
 LIBNAME = libft/libft.a
 LIBPATH = libft/
 
-READLINE = -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
+READLINE = -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 # -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 # -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
 

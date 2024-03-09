@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_token_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/08 13:05:16 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:59:20 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_get_env_name(char *command_line, char **env_name)
 		i++;
 		if ((command_line[i - 1] == '?' || command_line[i - 1] == '$')
 			&& i == 2)
-			break;
+			break ;
 	}
 	*env_name = (char *)malloc(sizeof(char) * (i + 1));
 	if (*env_name == NULL)

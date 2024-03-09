@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 13:58:56 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:49:37 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 		{
 			add_history(line);
-			ft_exec_cmd_line(line, &en);
+			if (ft_exec_cmd_line(line, &en))
+				return (EXIT_FAILURE);
 		}
 	}
 	return (EXIT_SUCCESS);
 }
 
-//heredoc controlD									
+//heredoc controlD
 //getenv fils de fils
 //parenthese vide
 //./Makefile ne fonctionne pas

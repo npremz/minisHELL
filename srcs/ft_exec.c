@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:29:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 17:28:44 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:59:43 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_check_access_then_exec(char *cmd_path, t_cmd *cmd, t_list **env)
 {
 	char	**env_tab;
-	
+
 	env_tab = ft_en_to_tab(*env);
 	if (env_tab == NULL)
 		return (EXIT_FAILURE);

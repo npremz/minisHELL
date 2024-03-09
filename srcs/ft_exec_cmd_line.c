@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 11:55:47 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:00:31 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 // 		printf("null node \n");
 // 		return ;
 // 	}
-	
 // 	printf("%d name:%s", ((t_cmd *)cmd)->type,
 // 		((t_cmd *)cmd)->name);
 // 	save = ((t_cmd *)cmd)->env_eff_name;
@@ -92,60 +91,11 @@ int	ft_exec_cmd_line(char *command_line, t_list **env)
 		return (EXIT_FAILURE);
 	if (ft_create_cmd_list(token_list, &cmd_list))
 		return (EXIT_FAILURE);
-	//ft_lstiter(cmd_list, &printf_cmd);
 	if (ft_create_cmd_tree(cmd_list, &cmd_tree))
 		return (EXIT_FAILURE);
-	//ft_btree_apply_suffix(cmd_tree, &printf_cmd);
 	if (ft_exec_cmd_tree(cmd_tree, env))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-//var env
-//assignation
-//leaks
-
-// while (cmd_list != NULL)
-// {
-// 	printf("name\n");
-// 	while (((t_cmd *)cmd_list->content)->wildcard_name)
-// 	{
-// 		printf("%d\n",
-// 			(int)*(t_bool *)
-// 				((t_cmd *)cmd_list->content)->wildcard_name->content);
-// 		((t_cmd *)cmd_list->content)->wildcard_name
-// 			= ((t_cmd *)cmd_list->content)->wildcard_name->next;
-// 	}
-// 	printf("\n");
-// 	printf("arg\n");
-// 	while (((t_cmd *)cmd_list->content)->wildcard_arg)
-// 	{
-// 		printf("%d\n",
-// 			(int)*(t_bool *)
-// 			((t_cmd *)cmd_list->content)->wildcard_arg->content);
-// 		((t_cmd *)cmd_list->content)->wildcard_arg
-// 			= ((t_cmd *)cmd_list->content)->wildcard_arg->next;
-// 	}
-// 	printf("\n");
-// 	printf("in\n");
-// 	while (((t_cmd *)cmd_list->content)->wildcard_in)
-// 	{
-// 		printf("%d\n",
-// 			(int)*(t_bool *)
-// 				((t_cmd *)cmd_list->content)->wildcard_in->content);
-// 		((t_cmd *)cmd_list->content)->wildcard_in
-// 			= ((t_cmd *)cmd_list->content)->wildcard_in->next;
-// 	}
-// 	printf("\n");
-// 	printf("out\n");
-// 	while (((t_cmd *)cmd_list->content)->wildcard_out)
-// 	{
-// 		printf("%d\n",
-// 			(int)*(t_bool *)
-// 				((t_cmd *)cmd_list->content)->wildcard_out->content);
-// 		((t_cmd *)cmd_list->content)->wildcard_out
-// 			= ((t_cmd *)cmd_list->content)->wildcard_out->next;
-// 	}
-// 	printf("\n");
-// 	cmd_list = cmd_list->next;
-// }
-// exit(0);
+//ft_lstiter(cmd_list, &printf_cmd);
+//ft_btree_apply_suffix(cmd_tree, &printf_cmd);

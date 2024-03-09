@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_cmd_tree.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 00:20:21 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 12:56:27 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:02:25 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ static int	ft_create_cmd_node(t_list *cmd_list, int size_cmd_list,
 
 int	ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree)
 {
-	if (ft_create_cmd_node(ft_lstlast(cmd_list), ft_lstsize(cmd_list), cmd_tree))
+	if (ft_create_cmd_node(ft_lstlast(cmd_list), ft_lstsize(cmd_list),
+			cmd_tree))
 		return (EXIT_FAILURE);
 	ft_free_cmd_list(cmd_list);
 	return (EXIT_SUCCESS);
