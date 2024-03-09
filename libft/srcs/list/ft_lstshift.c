@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstshift.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 01:35:12 by lethomas          #+#    #+#             */
-/*   Updated: 2023/12/13 01:46:05 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 11:31:30 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 t_list	*ft_lstshift(t_list *elem, int shift)
 {
-	while (elem != NULL && shift--)
-		elem = elem->next;
+	if (shift > 0)
+		while (elem != NULL && shift--)
+			elem = elem->next;
+	else if (shift < 0)
+		while (elem != NULL && shift++)
+			elem = elem->prev;
 	return (elem);
 }

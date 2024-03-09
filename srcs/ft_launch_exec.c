@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 17:31:29 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:49:35 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ static int	ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 }
 
 static int	ft_open_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env,
-	t_bool is_child)
+	t_bool is_child, int *return_value)
 {
 	char	*error_arg;
 	int		fd_in_out[2];
@@ -202,8 +202,7 @@ static int	ft_open_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env,
 		return (EXIT_FAILURE);
 	if (fd_in_out[0] != 0 && close(fd_in_out[0]))
 		return (EXIT_FAILURE);
-	if (ft_exec_builtin(cmd, env, fd_in_out[1], is_child))               //retour du buitlin
-		return (EXIT_FAILURE);
+	*return_value = ft_exec_builtin(cmd, env, fd_in_out[1], is_child);
 	if (fd_in_out[1] != 1 && close(fd_in_out[1]))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -212,19 +211,21 @@ static int	ft_open_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env,
 static int	ft_launch_builtin(t_cmd *cmd, int **fd_pipe_in_out,
 	int *pid_child_tab, t_list **env)
 {
+	int	i;
+
+	i = 1;
+	while (pid_child_tab[i] != 0)
+		i++;
 	if (fd_pipe_in_out[0] != NULL || fd_pipe_in_out[1] != NULL)
 	{
-		pid_child_tab++;
-		while (*pid_child_tab != 0)
-			pid_child_tab++;
-		*pid_child_tab = fork();
-		if (*pid_child_tab < 0)
+		pid_child_tab[i] = fork();
+		if (pid_child_tab[i] < 0)
 			return (EXIT_FAILURE);
-		if (*pid_child_tab == 0)
+		if (pid_child_tab[i] == 0)
 		{
-			if (ft_open_exec(cmd, fd_pipe_in_out, env, true))
-				return (EXIT_FAILURE);
-			exit(EXIT_SUCCESS);
+			if (ft_open_exec(cmd, fd_pipe_in_out, env, true, pid_child_tab))
+				exit(EXIT_FAILURE);
+			exit(*pid_child_tab);
 		}
 		else
 		{
@@ -238,8 +239,11 @@ static int	ft_launch_builtin(t_cmd *cmd, int **fd_pipe_in_out,
 		}
 	}
 	else
-		if (ft_open_exec(cmd, fd_pipe_in_out, env, false))
+	{
+		pid_child_tab[i] = -45;
+		if (ft_open_exec(cmd, fd_pipe_in_out, env, false, pid_child_tab))
 			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 

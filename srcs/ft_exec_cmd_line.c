@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/08 13:51:51 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 11:55:47 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_exec_cmd_line(char *command_line, t_list **env)
 	//ft_lstiter(cmd_list, &printf_cmd);
 	if (ft_create_cmd_tree(cmd_list, &cmd_tree))
 		return (EXIT_FAILURE);
-	//ft_btree_apply_prefix(cmd_tree, &printf_cmd);
+	//ft_btree_apply_suffix(cmd_tree, &printf_cmd);
 	if (ft_exec_cmd_tree(cmd_tree, env))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
