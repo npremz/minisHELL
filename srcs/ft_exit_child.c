@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 00:19:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 15:12:42 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:26:22 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ static char	*ft_strerror(int errnum)
 		return ("command not found");
 	else if (errnum == 201)
 		return ("ambiguous redirect");
+	else if (errnum == 202)
+		return ("syntax error near unexpected token `('");
+	else if (errnum == 203)
+		return ("syntax error near unexpected token `)'");
+	else if (errnum == 204)
+		return ("syntax error near unexpected token `newline'");
+	else if (errnum == 204)
+		return ("syntax error near unexpected token `|'");
+	else if (errnum == 204)
+		return ("syntax error near unexpected token `||'");
+	else if (errnum == 204)
+		return ("syntax error near unexpected token `&&'");
 	return ("unknowed code error");
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_operator_token.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:14:22 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:28:38 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	ft_operator_token_error(t_token *token,
 		error_flag->parenthesis_counter--;
 		error_flag->do_follow_right_parenthesis = true;
 		if (error_flag->is_prev_token_a_cmd_op == true
-			|| error_flag->parenthesis_counter < 0)
+			|| error_flag->parenthesis_counter < 0
+			|| error_flag->is_prev_token_a_left_parenthesis == true)
 			return (ft_putendl_fd("rigtht_parenthesis error", 2), EXIT_FAILURE);
 	}
 	if (!(ft_token_is_redirection_op(token)
