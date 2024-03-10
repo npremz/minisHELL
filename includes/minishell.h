@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:02:11 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:15:01 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <sys/wait.h>
 
 # include "../libft/includes/libft.h"
 
@@ -145,6 +146,8 @@ int				ft_set_cmd_redirection(t_cmd *cmd, t_list **token_list,
 					t_list **list_cmd_in, t_list **list_cmd_out);
 int				ft_set_cmd_in_out_arg(t_cmd *cmd, t_list *cmd_in,
 					t_list *cmd_out, t_list *cmd_option);
+
+int				ft_set_env_calls(t_cmd *cmd);
 
 int				ft_set_wildcard_for_cmd(t_cmd *cmd);
 int				ft_set_wildcard_for_cmd_name(t_cmd *cmd);

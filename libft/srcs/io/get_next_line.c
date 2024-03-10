@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:13:31 by lethomas          #+#    #+#             */
-/*   Updated: 2023/11/30 10:29:10 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/10 21:49:00 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ static int	ft_create_emptyline_bufferfromremaining(int *nbyte_read,
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[OPEN_MAX];
+	static char	*buffer[1024];
 	char		*line;
 	char		continue_to_read;
 	int			nbyte;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
 		return (NULL);
 	if (ft_create_emptyline_bufferfromremaining(&nbyte, buffer + fd, &line))
 		return (ft_free_all (buffer + fd, &line), NULL);

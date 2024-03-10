@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_set_env_calls.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 12:06:27 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/10 21:50:02 by npremont         ###   ########.fr       */
+/*   Created: 2024/03/10 22:10:33 by npremont          #+#    #+#             */
+/*   Updated: 2024/03/10 23:16:23 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "../includes/minishell.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include <stdint.h>
-
-# include "struct_enum_libft.h"
-# include "io.h"
-# include "string.h"
-# include "memory.h"
-# include "list.h"
-# include "btree.h"
-# include "other.h"
-
-#endif
+int	ft_set_env_calls(t_cmd *cmd)
+{
+	if (ft_handle_name(cmd))
+		return (EXIT_FAILURE);
+	if (ft_handle_args(cmd))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
