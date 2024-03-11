@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:12:11 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:25:31 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,21 @@ int	main(int argc, char **argv, char **envp)
 	line = NULL;
 	en = NULL;
 	ft_envinit(&en, envp);
-	signal(SIGINT, ft_sighandle);
+	signal(SIGINT, ft_new_prompt);
+	signal(SIGQUIT, ft_null);
 	while (1)
 	{
+		ft_mute_term();
 		line = readline("minishell> ");
-		if (line)
+		if (!line)
+			ft_exit(&en, false);
+		else if (line)
 		{
+			ft_unmute_term();
 			add_history(line);
-			if (ft_exec_cmd_line(line, &en))
-				return (EXIT_FAILURE);
+			signal(SIGINT, ft_kill_process);
+			ft_exec_cmd_line(line, &en);
+			signal(SIGINT, ft_new_prompt);
 		}
 	}
 	return (EXIT_SUCCESS);

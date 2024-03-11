@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/10 22:09:02 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:27:30 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ static int	ft_launch_builtin(t_cmd *cmd, int **fd_pipe_in_out,
 static int	ft_launch_exec(t_cmd *cmd, int **fd_pipe_in_out,
 	int *pid_child_tab, t_list **env)
 {
-	if (ft_set_wildcard_for_cmd(cmd))
+	if (ft_set_env_calls(cmd, *env, DEBUG_MODE))
 		return (EXIT_FAILURE);
-	if (ft_set_env_calls(cmd))
+	if (ft_set_wildcard_for_cmd(cmd))
 		return (EXIT_FAILURE);
 	if (ft_is_builtin(cmd) == false)
 	{

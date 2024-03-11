@@ -6,13 +6,13 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 10:58:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/05 13:59:52 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:24:10 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_initshlvl(t_list *en)
+int	ft_initshlvl(t_list **en)
 {
 	t_globvar	*var;
 	char		*shlvl;
@@ -24,7 +24,7 @@ int	ft_initshlvl(t_list *en)
 	var->name = ft_strdup("SHLVL");
 	if (!var->name)
 		return (free(var), EXIT_FAILURE);
-	shlvl = ft_get_gvar_value("SHLVL", en);
+	shlvl = ft_get_gvar_value("SHLVL", *en);
 	if (!shlvl)
 		lvl = 1;
 	else
@@ -38,10 +38,10 @@ int	ft_initshlvl(t_list *en)
 		return (free(var->name), free(var), EXIT_FAILURE);
 	if (ft_export_var(2, en, var))
 		return (EXIT_FAILURE);
-	return (free(var), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-int	ft_initpwd(t_list *en)
+int	ft_initpwd(t_list **en)
 {
 	t_globvar	*var;
 	char		pwd[1024];
@@ -59,7 +59,7 @@ int	ft_initpwd(t_list *en)
 		return (free(var->name), free(var), EXIT_FAILURE);
 	if (ft_export_var(2, en, var))
 		return (EXIT_FAILURE);
-	return (free(var), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_print_secret(t_list *en, int fd)
@@ -68,6 +68,8 @@ int	ft_print_secret(t_list *en, int fd)
 	char	*tmp;
 	size_t	i;
 
+	if (!en)
+		return (EXIT_SUCCESS);
 	en_tab = ft_en_to_tab(en);
 	if (!en_tab)
 		return (EXIT_FAILURE);
@@ -120,8 +122,8 @@ void	ft_envinit(t_list **en, char **envp)
 			exit_error("Error: Init failed.\n", en, var, EXIT_FAILURE);
 		ft_lstadd_back(en, new_node);
 	}
-	if (ft_initshlvl(*en))
+	if (ft_initshlvl(en))
 		exit_error("Error: Init failed.\n", en, NULL, EXIT_FAILURE);
-	if (ft_initpwd(*en))
+	if (ft_initpwd(en))
 		exit_error("Error: Init failed.\n", en, NULL, EXIT_FAILURE);
 }

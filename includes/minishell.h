@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/10 22:15:01 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:53:23 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <sys/wait.h>
+# include <termios.h>
 
 # include "../libft/includes/libft.h"
 
 # define MAX_CWD_PATH_SIZE 256
 # define BREAK 2
+# define DEBUG_MODE 0
 
 typedef enum e_token_type
 {
@@ -147,7 +149,12 @@ int				ft_set_cmd_redirection(t_cmd *cmd, t_list **token_list,
 int				ft_set_cmd_in_out_arg(t_cmd *cmd, t_list *cmd_in,
 					t_list *cmd_out, t_list *cmd_option);
 
-int				ft_set_env_calls(t_cmd *cmd);
+int				ft_set_env_calls(t_cmd *cmd, t_list *en, int debug);
+char			*ft_unsplit(char **tab, char *c);
+void			ft_debug(t_cmd *cmd);
+void			ft_add_var_len_to_res(int *i, int *len, char *var_name,
+					t_list *en);
+int				ft_add_var_to_res(char **res, char *var, t_list *en, int i[3]);
 
 int				ft_set_wildcard_for_cmd(t_cmd *cmd);
 int				ft_set_wildcard_for_cmd_name(t_cmd *cmd);
@@ -191,7 +198,11 @@ void			ft_free_tab(char **tab);
 
 /* SINGALS HANDLING */
 
-void			ft_sighandle(int num);
+void			ft_new_prompt(int num);
+void			ft_kill_process(int num);
+void			ft_null(int num);
+void			ft_mute_term(void);
+void			ft_unmute_term(void);
 
 /* EXEC BUILINS */
 
@@ -205,7 +216,7 @@ int				ft_exec_builtin(t_cmd *cmd, t_list **env, int fd,
 
 int				ft_cd(char **args, t_list **en, int fd);
 int				ft_export(char **args, t_list **en, int fd);
-int				ft_export_var(int type, t_list *en, t_globvar *var);
+int				ft_export_var(int type, t_list **en, t_globvar *var);
 int				ft_env(t_list *en, int fd);
 int				ft_pwd(int fd);
 int				ft_unset(char **args, t_list **en);

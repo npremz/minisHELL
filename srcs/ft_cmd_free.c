@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:05:48 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/08 13:54:06 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:40:47 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_free_cmd(void *cmd)
 	ft_lstclear(&((t_cmd *)cmd)->wildcard_in, &free);
 	ft_lstclear(&((t_cmd *)cmd)->wildcard_out, &free);
 	ft_lstclear(&((t_cmd *)cmd)->env_eff_name, &free);
-	ft_lstclear(&((t_cmd *)cmd)->env_eff_arg, &free);
 	ft_lstclear(&((t_cmd *)cmd)->env_eff_in, &free);
 	ft_lstclear(&((t_cmd *)cmd)->env_eff_out, &free);
 	free(cmd);

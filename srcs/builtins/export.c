@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:03:52 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/07 10:57:26 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:31:32 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,26 +90,27 @@ int	update_var(t_list **en, t_globvar *tmp, t_globvar *var, int type)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_export_var(int type, t_list *en, t_globvar *var)
+int	ft_export_var(int type, t_list **en, t_globvar *var)
 {
 	t_globvar	*tmp;
 	t_list		*en_start;
 
 	tmp = NULL;
-	en_start = en;
-	while (en)
+	en_start = *en;
+	while (*en)
 	{
-		tmp = en->content;
+		tmp = (*en)->content;
 		if (ft_strncmp(var->name, tmp->name, ft_strlen(var->name)) == 0)
 			break ;
 		else
 			tmp = NULL;
-		en = en->next;
+		*en = (*en)->next;
 	}
+	*en = en_start;
 	if (type == 1)
-		return (add_content_to_var(&en_start, tmp, var));
+		return (add_content_to_var(en, tmp, var));
 	if (type == 2 || type == 3)
-		return (update_var(&en_start, tmp, var, type));
+		return (update_var(en, tmp, var, type));
 	return (EXIT_FAILURE);
 }
 
@@ -134,7 +135,7 @@ int	ft_export(char **args, t_list **en, int fd)
 		plus_char = ft_strchr(var->name, '+');
 		if (plus_char)
 			*plus_char = '\0';
-		if (ft_export_var(type, *en, var) == 1)
+		if (ft_export_var(type, en, var) == 1)
 			return (free_globvar(var), EXIT_FAILURE);
 		++i;
 	}
