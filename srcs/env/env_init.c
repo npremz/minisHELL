@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 10:58:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 11:37:01 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:27:43 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	ft_print_secret(t_list *en, int fd)
 			i = 0;
 		}
 	}
-	ft_print_export(en_tab, fd);
+	if (ft_print_export(en_tab, fd))
+		return (EXIT_FAILURE);
 	ft_free_tab(en_tab);
 	return (EXIT_SUCCESS);
 }

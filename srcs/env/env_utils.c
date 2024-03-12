@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:48:21 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/07 17:23:45 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:27:16 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,27 +107,31 @@ char	**ft_en_to_tab(t_list *en)
 	return (res);
 }
 
-void	ft_print_export(char **en, int fd)
+int	ft_print_export(char **en, int fd)
 {
 	size_t	i;
 	size_t	j;
+	int		ret;
 
 	i = -1;
 	while (en[++i])
 	{
 		j = 0;
-		write(fd, "declare -x ", 12);
+		ret = write(fd, "declare -x ", 12);
 		while (en[i][j] != '=' && en[i][j] != '\0')
-			write(fd, &en[i][j++], 1);
+			ret = write(fd, &en[i][j++], 1);
 		if (!en[i][j])
 		{
-			write(fd, "\n", 1);
+			ret = write(fd, "\n", 1);
 			continue ;
 		}
-		write(fd, &en[i][j++], 1);
-		write(fd, "\"", 2);
+		ret = write(fd, &en[i][j++], 1);
+		ret = write(fd, "\"", 2);
 		while (en[i][j] != '\0')
-			write(fd, &en[i][j++], 1);
-		write(fd, "\"\n", 3);
+			ret = write(fd, &en[i][j++], 1);
+		ret = write(fd, "\"\n", 3);
 	}
+	if (ret == -1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

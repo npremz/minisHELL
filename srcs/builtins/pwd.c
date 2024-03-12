@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:29:19 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/09 12:44:15 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:35:13 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int	ft_pwd(int fd)
 
 	if (getcwd(cwd, 1024))
 	{
-		write(fd, cwd, ft_strlen(cwd));
-		write (1, "\n", 1);
+		if (write(fd, cwd, ft_strlen(cwd)) == -1)
+			return (EXIT_FAILURE);
+		if (write (fd, "\n", 1) == -1)
+			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	else

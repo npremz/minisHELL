@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:05:06 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 11:29:42 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:32:36 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	ft_go_to_path(char *str, t_list **en, char act_pwd[1024], int fd)
 		return (print_error("cd: « "), print_error(str),
 			print_error(" » not set.\n"), EXIT_FAILURE);
 	if (ft_strncmp("OLDPWD", str, 6) == 0)
-		write(fd, path, ft_strlen(path));
+		if (write(fd, path, ft_strlen(path)) == -1)
+			return (EXIT_FAILURE);
 	if (chdir(path) == -1)
 		return (perror("cd"), EXIT_FAILURE);
 	else

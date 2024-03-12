@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 11:54:27 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:27:06 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void			ft_envinit(t_list **en, char **envp);
 int				ft_get_globvar(char *varline, t_globvar **var);
 int				ft_print_secret(t_list *en, int fd);
 char			**ft_en_to_tab(t_list *en);
-void			ft_print_export(char **en, int fd);
+int				ft_print_export(char **en, int fd);
 char			*ft_get_varname(char *varline);
 char			*ft_get_varvalue(char *varline);
 char			*ft_get_gvar_value(char *str, t_list *en);
