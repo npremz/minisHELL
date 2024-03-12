@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 13:27:06 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:05:42 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define MAX_CWD_PATH_SIZE 256
 # define BREAK 2
-# define DEBUG_MODE 0
+# define DEBUG_MODE 1
 
 typedef enum e_token_type
 {
@@ -116,6 +116,8 @@ typedef struct s_quote_info
 	int			*cursor_pos;
 }	t_quote_info;
 
+t_sig	g_sig;
+
 int				ft_exec_cmd_line(char *command_line, t_list **env);
 
 int				ft_create_token_list(char *command_line, t_list **token_list);
@@ -197,6 +199,9 @@ void			ft_free_cmd_tree(t_btree *cmd_tree);
 void			ft_free_tab(char **tab);
 
 /* SINGALS HANDLING */
+
+void			ft_define_ctrl_c(void);
+void			ft_define_ctrl_bs(void);
 
 void			ft_new_prompt(int num);
 void			ft_kill_process(int num);

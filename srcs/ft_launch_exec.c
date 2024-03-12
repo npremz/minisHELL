@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 12:00:21 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:54:21 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ static int	ft_launch_builtin_forked(t_cmd *cmd, int **fd_pipe_in_out,
 	if (*pid_child_tab < 0)
 		return (EXIT_FAILURE);
 	if (*pid_child_tab == 0)
-		signal(SIGQUIT, ft_null);
-	if (*pid_child_tab == 0)
 	{
+		signal(SIGQUIT, SIG_IGN); //
 		if (ft_open_exec(cmd, fd_pipe_in_out, env, &error_arg))
 			ft_exit_child(cmd, fd_pipe_in_out, EXIT_FAILURE, error_arg);
 		ft_exit_child(cmd, fd_pipe_in_out, EXIT_SUCCESS, NULL);

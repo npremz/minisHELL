@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:08:28 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:01:44 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:48:33 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ static int	ft_or_and_cmd_condition(t_cmd_type operator_out,
 		{
 			if (waitpid(pid_child_tab[i], pid_child_tab, 0) == -1)
 				return (EXIT_FAILURE);
-			pid_child_tab[0] = WEXITSTATUS(pid_child_tab[0]);
+			if (WIFEXITED(pid_child_tab[0]))
+				pid_child_tab[0] = WEXITSTATUS(pid_child_tab[0]);
+			if (WIFSIGNALED(pid_child_tab[0]))
+				pid_child_tab[0] = WTERMSIG(pid_child_tab[0]);
 		}
 		pid_child_tab[i] = -19;
 		if (operator_out == and_operator_cmd && pid_child_tab[0] != 0)

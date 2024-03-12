@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:35:10 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 11:59:26 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:54:14 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 	if (*pid_child_tab < 0)
 		return (EXIT_FAILURE);
 	if (*pid_child_tab == 0)
-		signal(SIGQUIT, ft_null);
+		signal(SIGQUIT, SIG_IGN); //
 	if (*pid_child_tab == 0)
 		ft_open_dup_exec(cmd, fd_pipe_in_out, env);
 	else

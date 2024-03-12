@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:25:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/11 16:24:49 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:36:05 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ void	ft_new_prompt(int num)
 {
 	(void)num;
 	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (g_sig.sigint == 0)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	ft_kill_process(int num)
@@ -30,7 +33,7 @@ void	ft_kill_process(int num)
 void	ft_null(int num)
 {
 	(void)num;
-	rl_redisplay();
+	printf("bruh\n");
 }
 
 void	ft_mute_term(void)

@@ -1,7 +1,7 @@
 NAME		:=  minishell
 
 COMP		:= 	cc
-CFLAGS		:= 	-Wall -Wextra -Werror -fsanitize=address -g 
+CFLAGS		:= 	-Wall -Wextra -Werror
 
 SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_token_list.c ft_set_word_token.c \
@@ -16,7 +16,8 @@ SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_cmd_tree.c ft_exec_cmd_tree.c ft_launch_exec.c\
 				ft_launch_builtout.c ft_open_redirection.c ft_redirection_here_doc.c \
 				ft_exec.c ft_exit_child.c ft_token_free.c ft_cmd_free.c \
-				ft_exec_builtin.c ft_sighandle.c ft_set_env_calls.c ft_set_env_calls_utils.c
+				ft_exec_builtin.c ft_sighandle.c ft_set_env_calls.c ft_set_env_calls_utils.c \
+				ft_sig_definitions.c 
 
 BUILTIN		:= cd.c echo.c env.c exit.c export.c pwd.c unset.c
 

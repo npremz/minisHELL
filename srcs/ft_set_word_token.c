@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_word_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:11:12 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/08 13:01:30 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:49:13 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+	#include "../includes/minishell.h"
 
 t_bool	ft_str_is_an_op(char *command_line)
 {
