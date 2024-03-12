@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 10:58:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/11 14:24:10 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:37:01 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_envinit(t_list **en, char **envp)
 	i = -1;
 	var = NULL;
 	new_node = NULL;
-	while (envp && envp[++i])
+	while (envp && envp[++i] /*&& envp[i + 1]*/)
 	{
 		var = malloc(sizeof(t_globvar));
 		if (!var)

@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:03:52 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/11 14:31:32 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:42:54 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_export_var(int type, t_list **en, t_globvar *var)
 	while (*en)
 	{
 		tmp = (*en)->content;
-		if (ft_strncmp(var->name, tmp->name, ft_strlen(var->name)) == 0)
+		if (ft_strncmp(var->name, tmp->name, ft_strlen(var->name) + 1) == 0)
 			break ;
 		else
 			tmp = NULL;

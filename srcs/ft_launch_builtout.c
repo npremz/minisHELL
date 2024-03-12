@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_launch_builtout.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:35:10 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 14:36:47 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:59:26 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 	*pid_child_tab = fork();
 	if (*pid_child_tab < 0)
 		return (EXIT_FAILURE);
+	if (*pid_child_tab == 0)
+		signal(SIGQUIT, ft_null);
 	if (*pid_child_tab == 0)
 		ft_open_dup_exec(cmd, fd_pipe_in_out, env);
 	else

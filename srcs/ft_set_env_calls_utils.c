@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 10:33:01 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/11 17:53:10 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:54:16 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_add_var_len_to_res(int *i, int *len, char *var_name, t_list *en)
 		++(*len);
 }
 
-int		ft_add_var_to_res(char **res, char *var, t_list *en, int i[3])
+int	ft_add_var_to_res(char **res, char *var, t_list *en, int i[3])
 {
 	char	*var_value;
 

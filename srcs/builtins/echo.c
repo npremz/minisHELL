@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:07:20 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/05 13:55:43 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:54:11 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ int	ft_echo(char **args, int fd)
 			nl = 0;
 		while (args[i])
 		{
-			write(fd, args[i], ft_strlen(args[i]));
+			if (write(fd, args[i], ft_strlen(args[i])))
+				return (EXIT_FAILURE);
 			++i;
 			if (args[i])
-				write(fd, " ", 1);
+				if (write(fd, " ", 1))
+					return (EXIT_FAILURE);
 		}
 	}
 	if (nl)
-		write(fd, "\n", 1);
+		if (write(fd, "\n", 1))
+			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
