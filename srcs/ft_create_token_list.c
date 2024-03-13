@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_token_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:18:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:33:35 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:38:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_bool	ft_trim_command_line(t_token *token, char *command_line,
 	return (false);
 }
 
-int	ft_create_token_list(char *command_line, t_list **token_list)
+int	ft_create_token_list(char *command_line, t_list **token_list, char **error_parsing)
 {
 	int				cursor_pos;
 	t_token			*token;
@@ -82,7 +82,7 @@ int	ft_create_token_list(char *command_line, t_list **token_list)
 		if (ft_trim_command_line(token, command_line, &cursor_pos))
 			break ;
 		if (ft_set_token(&command_line, &cursor_pos, token, &error_flag))
-			return (EXIT_FAILURE);
+			return (*error_parsing = error_flag.error_arg, EXIT_FAILURE);
 		if (ft_add_new_token(token_list, token))
 			return (EXIT_FAILURE);
 		if (ft_unclosed_command_line(token, &command_line, error_flag,

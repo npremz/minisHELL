@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 12:47:12 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:45:46 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define MAX_CWD_PATH_SIZE 256
 # define BREAK 2
-# define DEBUG_MODE 1
+# define DEBUG_MODE 0
 
 typedef enum e_token_type
 {
@@ -65,6 +65,7 @@ typedef struct s_error_flag
 	t_bool	do_follow_right_parenthesis;
 	t_bool	is_prev_token_a_cmd_op;
 	int		parenthesis_counter;
+	char	*error_arg;
 }	t_error_flag;
 
 typedef struct s_token
@@ -121,7 +122,7 @@ t_sig	g_sig;
 
 int				ft_exec_cmd_line(char *command_line, t_list **env);
 
-int				ft_create_token_list(char *command_line, t_list **token_list);
+int				ft_create_token_list(char *command_line, t_list **token_list, char **error_parsing);
 int				ft_set_word_token(char **command_line, int *cursor_pos,
 					t_token *token, t_error_flag *error_flag);
 int				ft_set_operator_token(char **command_line, int *cursor_pos,

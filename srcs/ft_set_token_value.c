@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 13:06:41 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:28:17 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	ft_get_env_name(char *command_line, char **env_name)
 	while (ft_isalpha(command_line[i]) == 1
 		|| (ft_isdigit(command_line[i]) == 1 && i != 0) || command_line[i] == '_')
 		i++;
-	if ((command_line[i] == '?'
-		|| ft_isdigit(command_line[i]) == 1)
+	if ((command_line[i] == '?')
 		&& i == 0)
 		i++;
 	*env_name = (char *)malloc(sizeof(char) * (i + 2));

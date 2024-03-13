@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:31:46 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:52:22 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,15 +130,37 @@ static int	ft_listen_heredoc(t_list *cmd_list)
 	return (EXIT_SUCCESS);
 }
 
+static int	ft_print_parsing_error(char *error_token)
+{
+	if (ft_putstr_fd("minishell: syntax error near unexpected token `", 2))
+		return (EXIT_FAILURE);
+	if (ft_putstr_fd(error_token, 2))
+		return (EXIT_FAILURE);
+	if (ft_putendl_fd("'", 2))
+		return (EXIT_FAILURE);
+	free(error_token);
+	return (EXIT_SUCCESS);
+}
+
 int	ft_exec_cmd_line(char *command_line, t_list **env)
 {
 	t_list	*token_list;
 	t_list	*cmd_list;
 	t_btree	*cmd_tree;
+	char	*error_parsing;
 
 	token_list = NULL;
-	if (ft_create_token_list(command_line, &token_list))
+	error_parsing = NULL;
+	if (ft_create_token_list(command_line, &token_list, &error_parsing))
+	{
+		if (error_parsing != NULL)
+		{
+			if (ft_print_parsing_error(error_parsing))
+				return (EXIT_FAILURE);
+			return (EXIT_SUCCESS);
+		}
 		return (EXIT_FAILURE);
+	}
 	if (token_list == NULL)
 		return (EXIT_SUCCESS);
 	if (ft_token_parenthesis(token_list))
