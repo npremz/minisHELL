@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_launch_builtout.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:35:10 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:54:20 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:11:34 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ int	ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 	if (*pid_child_tab < 0)
 		return (EXIT_FAILURE);
 	if (*pid_child_tab == 0)
-		signal(SIGQUIT, SIG_IGN); //
+		signal(SIGQUIT, SIG_IGN);
 	if (*pid_child_tab == 0)
 		ft_open_dup_exec(cmd, fd_pipe_in_out, env);
 	else
 	{
-		//close heredoc fd
+		if (ft_close_heredoc_fd(cmd))
+			return (EXIT_FAILURE);
 		if (fd_pipe_in_out[0] != NULL)
 			if (close((fd_pipe_in_out)[0][0])
 				|| close((fd_pipe_in_out)[0][1]))

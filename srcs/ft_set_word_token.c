@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_word_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:11:12 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:34:32 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:08:23 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,6 @@ int	ft_set_word_token(char **command_line, int *cursor_pos, t_token *token,
 			return (EXIT_FAILURE);
 		if (ft_look_for_special_char(*command_line + *cursor_pos, token))
 			return (EXIT_FAILURE);
-		if ((*command_line)[*cursor_pos] == '$'
-			&& (*command_line)[*cursor_pos + 1] == '$')
-			(*cursor_pos)++;
 		(*cursor_pos)++;
 	}
 	if (ft_set_token_value(*command_line, token_begin_pos, *cursor_pos, token))

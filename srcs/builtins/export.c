@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:03:52 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 11:16:05 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:50:43 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	update_var(t_list **en, t_globvar *tmp, t_globvar *var, int type)
 			free(tmp->value);
 			tmp->value = var->value;
 			free(var->name);
+			free(var);
 		}
 	}
 	else
@@ -139,5 +140,5 @@ int	ft_export(char **args, t_list **en, int fd)
 			return (free_globvar(var), EXIT_FAILURE);
 		++i;
 	}
-	return (free(var), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

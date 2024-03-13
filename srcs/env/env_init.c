@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 10:58:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 11:13:53 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:50:55 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_initshlvl(t_list **en)
 		return (free(var->name), free(var), EXIT_FAILURE);
 	if (ft_export_var(2, en, var))
 		return (EXIT_FAILURE);
-	return (free(var), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_initpwd(t_list **en)
@@ -59,7 +59,7 @@ int	ft_initpwd(t_list **en)
 		return (free(var->name), free(var), EXIT_FAILURE);
 	if (ft_export_var(2, en, var))
 		return (EXIT_FAILURE);
-	return (free(var), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	ft_print_secret(t_list *en, int fd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_token_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:42:04 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:06:41 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ int	ft_get_env_name(char *command_line, char **env_name)
 {
 	int	i;
 
-	i = 1;
-	while (command_line[i] != ' ' && ft_str_is_an_op(command_line + i) == false
-		&& command_line[i] != '\0' && command_line[i] != '\"'
-		&& command_line[i] != '\'' && (command_line[i] != '$' || i == 1))
-	{
+	i = 0;
+	command_line++;
+	while (ft_isalpha(command_line[i]) == 1
+		|| (ft_isdigit(command_line[i]) == 1 && i != 0) || command_line[i] == '_')
 		i++;
-		if ((command_line[i - 1] == '?' || command_line[i - 1] == '$')
-			&& i == 2)
-			break ;
-	}
-	*env_name = (char *)malloc(sizeof(char) * (i + 1));
+	if ((command_line[i] == '?'
+		|| ft_isdigit(command_line[i]) == 1)
+		&& i == 0)
+		i++;
+	*env_name = (char *)malloc(sizeof(char) * (i + 2));
 	if (*env_name == NULL)
 		return (EXIT_FAILURE);
-	ft_strlcpy(*env_name, command_line, i + 1);
+	command_line--;
+	ft_strlcpy(*env_name, command_line, i + 2);
 	return (EXIT_SUCCESS);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 00:19:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 18:56:48 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:41:20 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static char	*ft_strerror(int errnum)
 
 int	ft_display_error(char *arg_error)
 {
+	if (errno == 0)
+		return (EXIT_SUCCESS);
 	if (ft_putstr_fd("minishell", STDERR_FILENO))
 		return (EXIT_FAILURE);
 	if (arg_error != NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:30:36 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:47:47 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:18:06 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ static int	ft_write_env_value(int new_fd, t_list **env, char *str,
 	
 	if (ft_get_env_name(str + *cursor_pos, &env_name))
 		return (EXIT_FAILURE);
+	if (env_name[0] == '$' && env_name[1] == '\0')
+	{
+		(*cursor_pos)++;
+		if (write(new_fd, "$", 1) == -1)
+			return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
+	}
 	env_value = ft_get_gvar_value(env_name + 1, *env);
 	if (env_value != NULL)
 		if (write(new_fd, env_value, ft_strlen(env_value)) == -1)

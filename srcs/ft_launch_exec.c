@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_launch_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:38:32 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:12:31 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,30 @@ static int	ft_open_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env,
 	return (return_value);
 }
 
+int	ft_close_heredoc_fd(t_cmd *cmd)
+{
+	int	i;
+	t_bool	is_quoted;
+
+	i = 0;
+	if (cmd->in != NULL)
+	{
+		while (cmd->in[i] != NULL)
+		{
+			if (cmd->type_in[i] == redirection_here_doc)
+			{
+				is_quoted = false;
+				if (cmd->in[i][0] == '\'')
+					is_quoted = true;
+				if (close(ft_atoi(cmd->in[i] + (is_quoted == true), 0)))
+					return (EXIT_FAILURE);
+			}
+			i++;
+		}
+	}
+	return (EXIT_SUCCESS);
+}
+
 static int	ft_launch_builtin_forked(t_cmd *cmd, int **fd_pipe_in_out,
 	int *pid_child_tab, t_list **env)
 {
@@ -46,13 +70,15 @@ static int	ft_launch_builtin_forked(t_cmd *cmd, int **fd_pipe_in_out,
 		return (EXIT_FAILURE);
 	if (*pid_child_tab == 0)
 	{
-		signal(SIGQUIT, SIG_IGN); //
+		signal(SIGQUIT, SIG_IGN);
 		if (ft_open_exec(cmd, fd_pipe_in_out, env, &error_arg))
 			ft_exit_child(cmd, fd_pipe_in_out, EXIT_FAILURE, error_arg);
 		ft_exit_child(cmd, fd_pipe_in_out, EXIT_SUCCESS, NULL);
 	}
 	else
 	{
+		if (ft_close_heredoc_fd(cmd))
+			return (EXIT_FAILURE);
 		if (fd_pipe_in_out[0] != NULL)
 			if (close((fd_pipe_in_out)[0][0])
 				|| close((fd_pipe_in_out)[0][1]))

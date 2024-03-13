@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 11:42:26 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:47:12 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int				ft_set_pipe_fd(int *fd_pipe_in_out[2], int fd_in_out[2]);
 int				ft_open_redirection(t_cmd *cmd, char **error_arg,
 					int *fd_in_out, t_list **env);
 int				ft_redirection_here_doc(int *fd_in, char *delimiter);
+int				ft_close_heredoc_fd(t_cmd *cmd);
 int				ft_exec(t_cmd *cmd, char **error_arg, t_list **env);
 int				ft_exit_child(t_cmd *cmd, int *fd_pipe_tab[2], int status,
 					char *error_arg);

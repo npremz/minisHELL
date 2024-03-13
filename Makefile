@@ -1,7 +1,7 @@
 NAME		:=  minishell
 
 COMP		:= 	cc
-CFLAGS		:= 	-Wall -Wextra -Werror -g
+CFLAGS		:= 	-Wall -Wextra -Werror -g -fsanitize=address
 
 SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_token_list.c ft_set_word_token.c \
@@ -33,7 +33,7 @@ INCS		:= $(addprefix ./includes/, $(INC))
 LIBNAME = libft/libft.a
 LIBPATH = libft/
 
-READLINE = -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+READLINE = -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
 # -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 # -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
 
