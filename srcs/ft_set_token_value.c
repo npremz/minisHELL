@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_token_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 00:33:26 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 16:59:20 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:42:04 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	ft_get_env_name(char *command_line, char **env_name)
+int	ft_get_env_name(char *command_line, char **env_name)
 {
 	int	i;
 

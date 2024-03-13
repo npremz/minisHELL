@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 10:58:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 13:27:43 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:13:53 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_initshlvl(t_list **en)
 		return (free(var->name), free(var), EXIT_FAILURE);
 	if (ft_export_var(2, en, var))
 		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return (free(var), EXIT_SUCCESS);
 }
 
 int	ft_initpwd(t_list **en)
@@ -59,7 +59,7 @@ int	ft_initpwd(t_list **en)
 		return (free(var->name), free(var), EXIT_FAILURE);
 	if (ft_export_var(2, en, var))
 		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return (free(var), EXIT_SUCCESS);
 }
 
 int	ft_print_secret(t_list *en, int fd)
@@ -110,7 +110,7 @@ void	ft_envinit(t_list **en, char **envp)
 	i = -1;
 	var = NULL;
 	new_node = NULL;
-	while (envp && envp[++i] /*&& envp[i + 1]*/)
+	while (envp && envp[++i] && envp[i + 1]) //
 	{
 		var = malloc(sizeof(t_globvar));
 		if (!var)

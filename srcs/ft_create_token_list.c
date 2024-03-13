@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_token_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:18:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 18:59:43 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:33:35 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_error_flag	ft_init_error_flag(void)
 	error_flag.cmd_size = 0;
 	error_flag.is_prev_token_a_redirection = false;
 	error_flag.is_prev_token_a_left_parenthesis = false;
+	error_flag.is_prev_token_a_heredoc = false;
 	error_flag.do_follow_right_parenthesis = false;
 	error_flag.is_prev_token_a_cmd_op = true;
 	error_flag.parenthesis_counter = 0;
@@ -89,7 +90,7 @@ int	ft_create_token_list(char *command_line, t_list **token_list)
 			return (EXIT_FAILURE);
 	}
 	if (error_flag.is_prev_token_a_redirection == true)
-		return (ft_putendl_fd("redirection vide", 2), EXIT_FAILURE);
+		return (ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2), EXIT_FAILURE);
 	free(command_line);
 	return (EXIT_SUCCESS);
 }

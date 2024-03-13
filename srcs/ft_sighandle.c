@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:25:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 16:36:05 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:59:13 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	ft_kill_process(int num)
 
 void	ft_null(int num)
 {
-	(void)num;
-	printf("bruh\n");
+	(void)num; //
 }
 
 void	ft_mute_term(void)
@@ -42,7 +41,6 @@ void	ft_mute_term(void)
 
 	tcgetattr(STDIN_FILENO, &termios);
 	termios.c_lflag &= ~ECHOCTL;
-	//termios.c_lflag &= ~ECHO;
 	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
 }
 

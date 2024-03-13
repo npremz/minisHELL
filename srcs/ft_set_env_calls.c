@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 22:10:33 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 11:26:11 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:45:30 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ char	*ft_alloc_new_str(char *str, t_list *en, t_list *env_eff)
 		}
 		++len;
 	}
-	return (res = malloc((len + 1) * sizeof(char)), res);
+	res = malloc((len + 1) * sizeof(char));
+	return (res);
 }
 
 int	ft_handle_name(t_cmd *cmd, t_list *en)

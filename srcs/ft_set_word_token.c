@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:11:12 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 13:49:13 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:34:32 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,22 @@ static int	ft_word_token_error(t_error_flag *error_flag)
 	return (EXIT_SUCCESS);
 }
 
+static int	ft_heredoc_quoted(char *command_line, int cursor_pos,
+	t_token *token, t_error_flag *error_flag)
+{
+	if (command_line[cursor_pos] == '\''
+		&& error_flag->is_prev_token_a_heredoc == true)
+	{
+		if (token->value == NULL)
+			token->value = ft_strdup("\'");
+		else if (token->value[0] != '\'')
+			token->value = ft_strjoin("\'", token->value, false, true);
+		if (token->value == NULL)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	ft_set_word_token(char **command_line, int *cursor_pos, t_token *token,
 	t_error_flag *error_flag)
 {
@@ -77,6 +93,8 @@ int	ft_set_word_token(char **command_line, int *cursor_pos, t_token *token,
 		&& (*command_line)[*cursor_pos] != ' '
 		&& !ft_str_is_an_op(*command_line + *cursor_pos))
 	{
+		if (ft_heredoc_quoted(*command_line, *cursor_pos, token, error_flag))
+			return (EXIT_FAILURE);
 		if (ft_look_for_quote(command_line, cursor_pos, token,
 				&token_begin_pos))
 			return (EXIT_FAILURE);
@@ -89,5 +107,6 @@ int	ft_set_word_token(char **command_line, int *cursor_pos, t_token *token,
 	}
 	if (ft_set_token_value(*command_line, token_begin_pos, *cursor_pos, token))
 		return (EXIT_FAILURE);
+	error_flag->is_prev_token_a_heredoc = false;
 	return (EXIT_SUCCESS);
 }

@@ -1,7 +1,7 @@
 NAME		:=  minishell
 
 COMP		:= 	cc
-CFLAGS		:= 	-Wall -Wextra -Werror
+CFLAGS		:= 	-Wall -Wextra -Werror -g
 
 SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_create_token_list.c ft_set_word_token.c \
@@ -43,7 +43,6 @@ bonus: $(NAME_bonus)
 
 $(NAME): $(LIBNAME) $(OBJ) Makefile
 	@$(COMP) $(CFLAGS) $(OBJ) -o $@ -L $(LIBPATH) -lft $(READLINE)
-	@mv ./srcs/*.o ./srcs/objects/
 	@echo "\033[0;32m"
 	@echo " ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓    "
 	@echo "▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    "

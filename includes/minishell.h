@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 17:05:42 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:42:26 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_error_flag
 	t_bool	is_prev_token_a_redirection;
 	int		cmd_size;
 	t_bool	is_prev_token_a_left_parenthesis;
+	t_bool	is_prev_token_a_heredoc;
 	t_bool	do_follow_right_parenthesis;
 	t_bool	is_prev_token_a_cmd_op;
 	int		parenthesis_counter;
@@ -140,6 +141,7 @@ int				ft_set_token_wildcard_list(t_token *token,
 					t_bool is_wildcard_effective);
 int				ft_set_token_env_eff_list(char *command_line, t_token *token,
 					t_bool is_wildcard_effective);
+int				ft_get_env_name(char *command_line, char **env_name);
 t_bool			ft_str_is_an_op(char *command_line);
 
 int				ft_token_parenthesis(t_list *token_list);
@@ -157,6 +159,7 @@ void			ft_debug(t_cmd *cmd);
 void			ft_add_var_len_to_res(int *i, int *len, char *var_name,
 					t_list *en);
 int				ft_add_var_to_res(char **res, char *var, t_list *en, int i[3]);
+char			*ft_basename(char *str);
 
 int				ft_set_wildcard_for_cmd(t_cmd *cmd);
 int				ft_set_wildcard_for_cmd_name(t_cmd *cmd);
@@ -184,7 +187,7 @@ int				ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 					int *pid_child_tab, t_list **env);
 int				ft_set_pipe_fd(int *fd_pipe_in_out[2], int fd_in_out[2]);
 int				ft_open_redirection(t_cmd *cmd, char **error_arg,
-					int *fd_in_out);
+					int *fd_in_out, t_list **env);
 int				ft_redirection_here_doc(int *fd_in, char *delimiter);
 int				ft_exec(t_cmd *cmd, char **error_arg, t_list **env);
 int				ft_exit_child(t_cmd *cmd, int *fd_pipe_tab[2], int status,

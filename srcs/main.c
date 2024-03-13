@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 17:07:30 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:48:10 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	main(int argc, char **argv, char **envp)
 			ft_unmute_term();
 			add_history(line);
 			g_sig.sigint = 1;
+			signal(SIGINT, ft_null);
 			ft_exec_cmd_line(line, &en);
+			signal(SIGINT, ft_new_prompt);
 			g_sig.sigint = 0;
 		}
 	}

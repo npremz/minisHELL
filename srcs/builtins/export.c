@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:03:52 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 11:42:54 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:16:05 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_input_type(char *arg)
 
 	i = 0;
 	if (ft_isalpha(arg[i]) == 0 && arg[i] != '_')
-		return (write(2, "minishell: export: ", 9), write(2, "`", 1),
+		return (write(2, "minishell: export: ", 20), write(2, "`", 1),
 			write(2, arg, ft_strlen(arg)), write(2, "'", 1), 
 			write(2, ": not a valid identifier\n", 26));
 	++i;
@@ -27,7 +27,7 @@ static int	get_input_type(char *arg)
 		if (arg[i] == '+' && arg[i + 1] == '=')
 			return (1);
 		if (ft_isalnum(arg[i]) == 0 && arg[i] != '_')
-			return (write(2, "minishell: export: ", 9), write(2, "`", 1),
+			return (write(2, "minishell: export: ", 20), write(2, "`", 1),
 				write(2, arg, ft_strlen(arg)), write(2, "'", 1), 
 				write(2, ": not a valid identifier\n", 26));
 		++i;
@@ -139,5 +139,5 @@ int	ft_export(char **args, t_list **en, int fd)
 			return (free_globvar(var), EXIT_FAILURE);
 		++i;
 	}
-	return (EXIT_SUCCESS);
+	return (free(var), EXIT_SUCCESS);
 }

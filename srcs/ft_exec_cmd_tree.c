@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:08:28 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 15:48:33 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:52:59 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ static int	ft_or_and_cmd_condition(t_cmd_type operator_out,
 			if (WIFEXITED(pid_child_tab[0]))
 				pid_child_tab[0] = WEXITSTATUS(pid_child_tab[0]);
 			if (WIFSIGNALED(pid_child_tab[0]))
-				pid_child_tab[0] = WTERMSIG(pid_child_tab[0]);
+				pid_child_tab[0] = 130;
 		}
+		g_sig.exit_status = pid_child_tab[0]; //
 		pid_child_tab[i] = -19;
 		if (operator_out == and_operator_cmd && pid_child_tab[0] != 0)
 			*do_continue = false;
@@ -131,6 +132,7 @@ int	ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env)
 		return (EXIT_FAILURE);
 	if (ft_wait_for_children(pid_child_tab))
 		return (EXIT_FAILURE);
+	g_sig.exit_status = pid_child_tab[0]; //
 	free(pid_child_tab);
 	ft_free_cmd_tree(cmd_tree);
 	return (EXIT_SUCCESS);

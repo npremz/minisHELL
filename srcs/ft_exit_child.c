@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 00:19:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:26:22 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:56:48 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// static int	ft_ind_basename(char *str)
-// {
-// 	int	i;
+char	*ft_basename(char *str)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (str[i])
-// 		i++;
-// 	while (str[i] != '/' && i != 0)
-// 		i--;
-// 	if (str[i] == '/')
-// 		return (++i);
-// 	return (i);
-// }
+	i = 0;
+	while (str[i])
+		i++;
+	while (str[i] != '/' && i != 0)
+		i--;
+	if (str[i] == '/')
+		return (&str[++i]);
+	return (str);
+} //
 
 static char	*ft_strerror(int errnum)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_operator_token.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:14:22 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:28:38 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:36:13 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	ft_operator_token_error_following(t_token *token,
 static int	ft_operator_token_error(t_token *token,
 	t_error_flag *error_flag)
 {
+	if (token->type == redirection_here_doc)
+		error_flag->is_prev_token_a_heredoc = true;
 	if (error_flag->is_prev_token_a_redirection == true)
 		return (ft_putendl_fd("redirection vide", 2), EXIT_FAILURE);
 	if (token->type == left_parenthesis)

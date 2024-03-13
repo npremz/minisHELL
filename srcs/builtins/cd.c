@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:05:06 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 13:32:36 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:56:17 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_get_gvar_value(char *str, t_list *en)
 	while (en)
 	{
 		var = en->content;
-		if (ft_strncmp(str, var->name, ft_strlen(str)) == 0)
+		if (ft_strncmp(str, var->name, ft_strlen(str) + 1) == 0) //
 			return (var->value);
 		en = en->next;
 	}

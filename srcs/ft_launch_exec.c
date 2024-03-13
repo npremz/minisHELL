@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 16:54:21 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:38:32 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_open_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env,
 		is_child = true;
 	if (ft_set_pipe_fd(fd_pipe_in_out, fd_in_out))
 		return (EXIT_FAILURE);
-	if (ft_open_redirection(cmd, error_arg, fd_in_out))
+	if (ft_open_redirection(cmd, error_arg, fd_in_out, env))
 		return (EXIT_FAILURE);
 	if (fd_in_out[0] != 0 && close(fd_in_out[0]))
 		return (EXIT_FAILURE);

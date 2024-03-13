@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:35:10 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 16:54:14 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:54:20 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_open_dup_exec(t_cmd *cmd, int *fd_pipe_in_out[2], t_list **env)
 	fd_in_out[1] = -1;
 	if (ft_set_pipe_fd(fd_pipe_in_out, fd_in_out))
 		ft_exit_child(cmd, fd_pipe_in_out, EXIT_FAILURE, error_arg);
-	if (ft_open_redirection(cmd, &error_arg, fd_in_out))
+	if (ft_open_redirection(cmd, &error_arg, fd_in_out, env))
 		ft_exit_child(cmd, fd_pipe_in_out, EXIT_FAILURE, error_arg);
 	if (ft_dup(fd_in_out))
 		ft_exit_child(cmd, fd_pipe_in_out, EXIT_FAILURE, error_arg);
@@ -67,6 +67,7 @@ int	ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 		ft_open_dup_exec(cmd, fd_pipe_in_out, env);
 	else
 	{
+		//close heredoc fd
 		if (fd_pipe_in_out[0] != NULL)
 			if (close((fd_pipe_in_out)[0][0])
 				|| close((fd_pipe_in_out)[0][1]))

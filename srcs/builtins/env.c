@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:47:22 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 13:34:16 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:33:03 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ int	ft_env(t_list *en, int fd)
 		}
 		en = en->next;
 	}
+	if (write(fd, "_=/usr/bin/env\n", 16) == -1) //
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

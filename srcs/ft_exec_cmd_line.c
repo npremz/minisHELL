@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/11 17:54:02 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:31:46 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,60 @@ static void	printf_cmd(void *cmd)
 	printf("\n");
 }
 
+static int	ft_save_fd_heredoc(int fd, char **char_heredoc_fd)
+{
+	char	*temp;
+	t_bool	is_quoted;
+
+	is_quoted = false;
+	if ((*char_heredoc_fd)[0] == '\'')
+		is_quoted = true;
+	temp = ft_itoa(fd);
+	if (temp == NULL)
+		return (EXIT_FAILURE);
+	free(*char_heredoc_fd);
+	*char_heredoc_fd = (char *)malloc((ft_strlen(temp)
+				+ (is_quoted == true) + 1) * sizeof(char));
+	if (*char_heredoc_fd == NULL)
+		return (EXIT_FAILURE);
+	if (is_quoted == true)
+		(*char_heredoc_fd)[0] = '\'';
+	ft_strlcpy(*char_heredoc_fd + (is_quoted == true), temp,
+		ft_strlen(temp) + 1);
+	free(temp);
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_listen_heredoc(t_list *cmd_list)
+{
+	int		i;
+	int		fd_heredoc;
+	t_cmd	*cmd;
+
+	while (cmd_list != NULL)
+	{
+		cmd = (t_cmd *)cmd_list->content;
+		i = 0;
+		if (cmd->in != NULL)
+		{
+			while (cmd->in[i] != NULL)
+			{
+				if (cmd->type_in[i] == redirection_here_doc)
+				{
+					if (ft_redirection_here_doc(&fd_heredoc,
+							cmd->in[i] + (cmd->in[i][0] == '\'')))
+						return (EXIT_FAILURE);
+					if (ft_save_fd_heredoc(fd_heredoc, cmd->in + i))
+						return (EXIT_FAILURE);
+				}
+				i++;
+			}
+		}
+		cmd_list = cmd_list->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	ft_exec_cmd_line(char *command_line, t_list **env)
 {
 	t_list	*token_list;
@@ -90,6 +144,8 @@ int	ft_exec_cmd_line(char *command_line, t_list **env)
 	if (ft_token_parenthesis(token_list))
 		return (EXIT_FAILURE);
 	if (ft_create_cmd_list(token_list, &cmd_list))
+		return (EXIT_FAILURE);
+	if (ft_listen_heredoc(cmd_list))
 		return (EXIT_FAILURE);
 	if (DEBUG_MODE)
 		ft_lstiter(cmd_list, &printf_cmd);
