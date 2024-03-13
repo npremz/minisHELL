@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 00:19:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 12:41:20 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:03:08 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_basename(char *str)
 	if (str[i] == '/')
 		return (&str[++i]);
 	return (str);
-} //
+}
 
 static char	*ft_strerror(int errnum)
 {

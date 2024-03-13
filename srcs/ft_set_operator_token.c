@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 21:14:22 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 15:01:42 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:03:43 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	ft_set_operator_token(char **command_line, int *cursor_pos, t_token *token,
 		error_flag->is_prev_token_a_heredoc = true;
 	if (ft_operator_token_error(token, error_flag))
 	{
-		if (ft_get_next_token(token, *command_line + *cursor_pos, &error_flag->error_arg))
+		if (ft_get_next_token(token, *command_line + *cursor_pos,
+				&error_flag->error_arg))
 			return (EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}

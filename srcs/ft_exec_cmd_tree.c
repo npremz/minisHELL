@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:08:28 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 15:37:02 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:42:46 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_or_and_cmd_condition(t_cmd_type operator_out,
 			if (WIFSIGNALED(pid_child_tab[0]))
 				pid_child_tab[0] = 130;
 		}
-		g_sig.exit_status = pid_child_tab[0]; //
+		g_sig.exit_status = pid_child_tab[0];
 		pid_child_tab[i] = -19;
 		if (operator_out == and_operator_cmd && pid_child_tab[0] != 0)
 			*do_continue = false;
@@ -86,26 +86,18 @@ static int	ft_exec_cmd_tree_rec(t_btree *cmd_tree, t_cmd_type operator_out,
 
 static int	ft_wait_for_children(pid_t *pid_child_tab)
 {
-	int		i;
 	int		j;
-	t_bool	is_last_child;
 	int		status;
 
 	j = 1;
 	while (pid_child_tab[j] != -42)
 	{
-		if (pid_child_tab[j] != 0 && pid_child_tab[j] != -19
-			&& pid_child_tab[j] != -45)
+		if (pid_child_tab[j] > 0)
 		{
 			if (waitpid(pid_child_tab[j], &status, 0) == -1)
 				return (EXIT_FAILURE);
 			pid_child_tab[j] = -19;
-			i = 0;
-			is_last_child = true;
-			while (pid_child_tab[j + ++i] != -42)
-				if (pid_child_tab[j + i] != 0)
-					is_last_child = false;
-			if (is_last_child == true)
+			if (ft_is_last_child(pid_child_tab, j))
 			{
 				if (WIFEXITED(status))
 					pid_child_tab[0] = WEXITSTATUS(status);
@@ -137,7 +129,7 @@ int	ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env)
 		return (EXIT_FAILURE);
 	if (ft_wait_for_children(pid_child_tab))
 		return (EXIT_FAILURE);
-	g_sig.exit_status = pid_child_tab[0]; //
+	g_sig.exit_status = pid_child_tab[0];
 	free(pid_child_tab);
 	ft_free_cmd_tree(cmd_tree);
 	return (EXIT_SUCCESS);

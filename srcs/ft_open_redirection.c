@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:30:36 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 13:18:06 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:07:02 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,82 +42,8 @@ static int	ft_is_an_ambiguous_red(char *red_name)
 	return (false);
 }
 
-static int	ft_write_env_value(int new_fd, t_list **env, char *str,
-	int *cursor_pos)
-{
-	char	*env_name;
-	char	*env_value;
-	
-	if (ft_get_env_name(str + *cursor_pos, &env_name))
-		return (EXIT_FAILURE);
-	if (env_name[0] == '$' && env_name[1] == '\0')
-	{
-		(*cursor_pos)++;
-		if (write(new_fd, "$", 1) == -1)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
-	}
-	env_value = ft_get_gvar_value(env_name + 1, *env);
-	if (env_value != NULL)
-		if (write(new_fd, env_value, ft_strlen(env_value)) == -1)
-			return (EXIT_FAILURE);
-	*cursor_pos += ft_strlen(env_name);
-	free(env_name);
-	return (EXIT_SUCCESS);
-}
-
-static int	ft_fill_new_pipe(int new_fd, int old_fd, t_list **env)
-{
-	char	*str;
-	int		cursor_pos;
-
-	str = get_next_line(old_fd);
-	while (str != NULL)
-	{
-		cursor_pos = 0;
-		while (str[cursor_pos] != '\0')
-		{
-			if (str[cursor_pos] != '$')
-			{
-				if (write(new_fd, str + cursor_pos, 1) == -1)
-					return (EXIT_FAILURE);
-				cursor_pos++;
-			}
-			else
-				if (ft_write_env_value(new_fd, env, str, &cursor_pos))
-					return (EXIT_FAILURE);
-		}
-		free(str);
-		str = get_next_line(old_fd);
-	}
-	return (EXIT_SUCCESS);
-}
-
-static int	ft_here_doc_env(int *fd, char *char_fd, t_list **env)
-{
-	t_bool	is_quoted;
-	int		new_fd[2];
-
-	is_quoted = false;
-	if (char_fd[0] == '\'')
-		is_quoted = true;
-	*fd = ft_atoi(char_fd + (is_quoted == true), 0);
-	if (is_quoted == false)
-	{
-		if (pipe(new_fd) == -1)
-			return (EXIT_FAILURE);
-		if (ft_fill_new_pipe(new_fd[1], *fd, env))
-			return (EXIT_FAILURE);
-		if (close(*fd))
-			return (EXIT_FAILURE);
-		*fd = new_fd[0];
-		if (close(new_fd[1]))
-			return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
-static int	ft_open_redirection_in(t_cmd *cmd, char **error_arg, int *fd_in, t_list **env)
+static int	ft_open_redirection_in(t_cmd *cmd, char **error_arg, int *fd_in,
+	t_list **env)
 {
 	int	i;
 
@@ -175,7 +101,8 @@ static int	ft_open_redirection_out(t_cmd *cmd, char **error_arg, int *fd_out)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_open_redirection(t_cmd *cmd, char **error_arg, int *fd_in_out, t_list **env)
+int	ft_open_redirection(t_cmd *cmd, char **error_arg, int *fd_in_out,
+	t_list **env)
 {
 	int		fd;
 

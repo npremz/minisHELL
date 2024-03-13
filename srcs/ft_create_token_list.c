@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:18:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 14:38:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:51:38 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ static t_bool	ft_trim_command_line(t_token *token, char *command_line,
 	return (false);
 }
 
-int	ft_create_token_list(char *command_line, t_list **token_list, char **error_parsing)
+int	ft_create_token_list(char *command_line, t_list **token_list,
+	char **error_parsing)
 {
 	int				cursor_pos;
 	t_token			*token;
@@ -90,7 +91,7 @@ int	ft_create_token_list(char *command_line, t_list **token_list, char **error_p
 			return (EXIT_FAILURE);
 	}
 	if (error_flag.is_prev_token_a_redirection == true)
-		return (ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2), EXIT_FAILURE);
+		return (ft_set_parsing_error(error_parsing), EXIT_FAILURE);
 	free(command_line);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 14:45:46 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:44:05 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ t_sig	g_sig;
 
 int				ft_exec_cmd_line(char *command_line, t_list **env);
 
-int				ft_create_token_list(char *command_line, t_list **token_list, char **error_parsing);
+int				ft_create_token_list(char *command_line, t_list **token_list,
+					char **error_parsing);
 int				ft_set_word_token(char **command_line, int *cursor_pos,
 					t_token *token, t_error_flag *error_flag);
 int				ft_set_operator_token(char **command_line, int *cursor_pos,
@@ -144,6 +145,9 @@ int				ft_set_token_env_eff_list(char *command_line, t_token *token,
 					t_bool is_wildcard_effective);
 int				ft_get_env_name(char *command_line, char **env_name);
 t_bool			ft_str_is_an_op(char *command_line);
+int				ft_set_parsing_error(char **error_parsing);
+int				ft_word_token_error(t_error_flag *error_flag,
+					char *command_line, int cursor_pos);
 
 int				ft_token_parenthesis(t_list *token_list);
 
@@ -186,15 +190,19 @@ int				ft_init_exec(t_btree *cmd_tree, t_cmd_type operator_out,
 					int **fd_pipe_in, int *pid_child_tab, t_list **env);
 int				ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 					int *pid_child_tab, t_list **env);
+int				ft_launch_builtin(t_cmd *cmd, int **fd_pipe_in_out,
+					int *pid_child_tab, t_list **env);
 int				ft_set_pipe_fd(int *fd_pipe_in_out[2], int fd_in_out[2]);
 int				ft_open_redirection(t_cmd *cmd, char **error_arg,
 					int *fd_in_out, t_list **env);
 int				ft_redirection_here_doc(int *fd_in, char *delimiter);
+int				ft_here_doc_env(int *fd, char *char_fd, t_list **env);
 int				ft_close_heredoc_fd(t_cmd *cmd);
 int				ft_exec(t_cmd *cmd, char **error_arg, t_list **env);
 int				ft_exit_child(t_cmd *cmd, int *fd_pipe_tab[2], int status,
 					char *error_arg);
 int				ft_display_error(char *arg_error);
+t_bool			ft_is_last_child(pid_t *pid_child_tab, int j);
 
 void			ft_free_token(void *token);
 void			ft_free_token_list(t_list **token_list);
