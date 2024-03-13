@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 22:10:33 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 17:45:30 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:28:59 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_create_new_str(char **res, char *str, t_list *env_eff, t_list *en)
 				if (ft_add_var_to_res(res, env_eff->content, en, i))
 					return (EXIT_FAILURE);
 				if (i[2] == 0)
-					while (str[++(i[0])] && str[i[0]] != ' '
-						&& str[i[0]] != '$')
+					while (str[++(i[0])] && str[i[0]] != ' ' && str[i[0]] != '_'
+						&& str[i[0]] != '$' && ft_isalnum(str[i[0]]))
 						;
 				env_eff = env_eff->next;
 				continue ;
@@ -37,7 +37,9 @@ int	ft_create_new_str(char **res, char *str, t_list *env_eff, t_list *en)
 		}
 		(*res)[(i[1])++] = str[(i[0])++];
 	}
-	return ((*res)[i[1]] = '\0', EXIT_SUCCESS);
+	//printf("%d\n", i[1]);
+	(*res)[(i[1])] = '\0';
+	return (EXIT_SUCCESS);
 }
 
 char	*ft_alloc_new_str(char *str, t_list *en, t_list *env_eff)
@@ -53,12 +55,13 @@ char	*ft_alloc_new_str(char *str, t_list *en, t_list *env_eff)
 		if (str[i] == '$')
 		{
 			if (env_eff->content)
-				ft_add_var_len_to_res(&i, &len, env_eff->content, en);
+				if (ft_strncmp(env_eff->content, "$", 2) != 0)
+					ft_add_var_len_to_res(&i, &len, env_eff->content, en);
 			env_eff = env_eff->next;
 		}
 		++len;
 	}
-	res = malloc((len + 1) * sizeof(char));
+	res = malloc((len + 1));
 	return (res);
 }
 

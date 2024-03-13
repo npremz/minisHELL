@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:05:06 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 18:56:17 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:15:53 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	update_env(t_list **en, char act_pwd[1024])
 	var->value = ft_strdup(act_pwd);
 	if (!var->value)
 		return (free_globvar(var), EXIT_FAILURE);
-	if (ft_export_var(2, en, var) == 1)
+	if (ft_export_var(4, en, var) == 1)
 		return (free_globvar(var), EXIT_FAILURE);
 	getcwd(act_pwd, 1024);
 	var->name = ft_strdup("PWD");
@@ -34,7 +34,7 @@ int	update_env(t_list **en, char act_pwd[1024])
 	var->value = ft_strdup(act_pwd);
 	if (!var->value)
 		return (free_globvar(var), EXIT_FAILURE);
-	if (ft_export_var(2, en, var) == 1)
+	if (ft_export_var(4, en, var) == 1)
 		return (free_globvar(var), EXIT_FAILURE);
 	free(var);
 	return (EXIT_SUCCESS);

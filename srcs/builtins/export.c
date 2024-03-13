@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:03:52 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 12:50:43 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:18:03 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ int	update_var(t_list **en, t_globvar *tmp, t_globvar *var, int type)
 
 	if (tmp)
 	{
-		if (type == 2)
+		if (type == 2 || type == 4)
 		{
 			free(tmp->value);
 			tmp->value = var->value;
 			free(var->name);
-			free(var);
+			if (type == 2)
+				free(var);
 		}
 	}
 	else
@@ -127,6 +128,7 @@ int	ft_export(char **args, t_list **en, int fd)
 	i = 1;
 	while (args[i])
 	{
+		var = NULL;
 		type = get_input_type(args[1]);
 		var = malloc(sizeof(t_globvar));
 		if (!var)

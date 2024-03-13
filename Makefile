@@ -33,7 +33,7 @@ INCS		:= $(addprefix ./includes/, $(INC))
 LIBNAME = libft/libft.a
 LIBPATH = libft/
 
-READLINE = -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
+READLINE = -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 # -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 # -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
 
