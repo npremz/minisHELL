@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_cmd_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:08:28 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 17:52:59 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:37:02 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,12 @@ static int	ft_wait_for_children(pid_t *pid_child_tab)
 				if (pid_child_tab[j + i] != 0)
 					is_last_child = false;
 			if (is_last_child == true)
-				pid_child_tab[0] = WEXITSTATUS(status);
+			{
+				if (WIFEXITED(status))
+					pid_child_tab[0] = WEXITSTATUS(status);
+				if (WIFSIGNALED(status))
+					pid_child_tab[0] = 130;
+			}
 		}
 		j++;
 	}
