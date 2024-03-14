@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 22:10:33 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 15:28:59 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:48:38 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int	ft_create_new_str(char **res, char *str, t_list *env_eff, t_list *en)
 {
-	int		i[3];
+	int		i[4];
 
 	i[0] = 0;
 	i[1] = 0;
+	i[3] = ft_strlen((*res));
 	while (str[i[0]])
 	{
 		if (str[i[0]] == '$')
@@ -37,9 +38,7 @@ int	ft_create_new_str(char **res, char *str, t_list *env_eff, t_list *en)
 		}
 		(*res)[(i[1])++] = str[(i[0])++];
 	}
-	//printf("%d\n", i[1]);
-	(*res)[(i[1])] = '\0';
-	return (EXIT_SUCCESS);
+	return ((*res)[(i[1])] = '\0', EXIT_SUCCESS);
 }
 
 char	*ft_alloc_new_str(char *str, t_list *en, t_list *env_eff)
@@ -62,6 +61,8 @@ char	*ft_alloc_new_str(char *str, t_list *en, t_list *env_eff)
 		++len;
 	}
 	res = malloc((len + 1));
+	ft_memset(res, 32, len);
+	res[len] = '\0';
 	return (res);
 }
 

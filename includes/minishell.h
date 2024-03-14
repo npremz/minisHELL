@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 18:41:02 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:50:25 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ int				ft_env(t_list *en, int fd);
 int				ft_pwd(int fd);
 int				ft_unset(char **args, t_list **en);
 int				ft_echo(char **args, int fd);
-int				ft_exit(t_list **en, t_bool is_child);
+int				ft_exit(t_list **en, char **args, t_bool is_child);
 
 /* ENV init
 ** Clean exit if failed
@@ -256,6 +256,8 @@ void			ft_envinit(t_list **en, char **envp);
 /* BUILTINS UTILS */
 
 int				ft_get_globvar(char *varline, t_globvar **var);
+int				ft_init_gvar(t_globvar **var, char *name, char *value);
+void			export_swap(t_globvar *tmp, t_globvar *var, int type);
 int				ft_print_secret(t_list *en, int fd);
 char			**ft_en_to_tab(t_list *en);
 int				ft_print_export(char **en, int fd);

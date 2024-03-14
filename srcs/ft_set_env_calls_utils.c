@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 10:33:01 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 15:12:55 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:48:44 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_unsplit(char **tab, char *c)
 
 	i = 0;
 	res = ft_calloc(1, 1);
+	if (!res)
+		return (NULL);
 	while (tab[i])
 	{
 		res = ft_strjoin(res, tab[i], true, false);
@@ -84,19 +86,19 @@ void	ft_add_var_len_to_res(int *i, int *len, char *var_name, t_list *en)
 int	ft_add_var_to_res(char **res, char *var, t_list *en, int i[3])
 {
 	char	*var_value;
+	char	*status_str;
 
 	(*res)[i[1]] = '\0';
+	status_str = ft_itoa(g_sig.exit_status);
 	var_value = ft_get_gvar_value(var + 1, en);
 	if (var_value)
-		(*res) = ft_strjoin((*res), var_value, true, false);
+		ft_strlcat((*res), var_value, i[3]);
 	else if (*(var + 1) == '?')
-		(*res) = ft_strjoin((*res), ft_itoa(g_sig.exit_status), true, true);
+		ft_strlcat((*res), status_str, i[3]);
 	else if (*(var + 1) == '_')
-		(*res) = ft_strjoin((*res), "/usr/bin/env", true, false);
+		ft_strlcat((*res), "/usr/bin/env", i[3]);
 	if (ft_strncmp("$", var, 2) == 0)
-		(*res) = ft_strjoin((*res), "$", true, false);
-	if (!(*res))
-		return (EXIT_FAILURE);
+		ft_strlcat((*res), "$", i[3] + 1);
 	if (var_value || *(var + 1) == '?' || *(var + 1) == '_'
 		|| ft_strncmp("$", var, 2) == 0)
 	{
@@ -106,5 +108,5 @@ int	ft_add_var_to_res(char **res, char *var, t_list *en, int i[3])
 	}
 	else
 		i[2] = 0;
-	return (EXIT_SUCCESS);
+	return (free(status_str), EXIT_SUCCESS);
 }

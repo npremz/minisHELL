@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 12:33:40 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/07 16:59:07 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:48:59 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_exec_builtin(t_cmd *cmd, t_list **env, int fd, t_bool is_child)
 	else if (ft_strncmp(cmd->name, "env", 4) == 0)
 		return (ft_env(*env, fd));
 	else if (ft_strncmp(cmd->name, "exit", 5) == 0)
-		return (ft_exit(env, is_child));
+		return (ft_exit(env, cmd->arg, is_child));
 	else if (ft_strncmp(cmd->name, "pwd", 4) == 0)
 		return (ft_pwd(fd));
 	else if (ft_strncmp(cmd->name, "export", 7) == 0)

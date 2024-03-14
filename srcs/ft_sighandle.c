@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:25:51 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 10:59:13 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:48:13 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_kill_process(int num)
 
 void	ft_null(int num)
 {
-	(void)num; //
+	(void)num;
 }
 
 void	ft_mute_term(void)

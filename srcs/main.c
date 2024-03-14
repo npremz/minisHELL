@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 04:56:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 18:30:44 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:48:03 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_mute_term();
 		line = readline("minishell> ");
 		if (!line)
-			ft_exit(&en, false);
+			ft_exit(&en, NULL, false);
 		else if (line)
 		{
 			ft_unmute_term();

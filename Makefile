@@ -19,7 +19,7 @@ SRC			:=	main.c ft_exec_cmd_line.c \
 				ft_exec_builtin.c ft_sighandle.c ft_set_env_calls.c ft_set_env_calls_utils.c \
 				ft_sig_definitions.c ft_parsing_error.c ft_is_last_child.c  ft_launch_builtin.c
 
-BUILTIN		:= cd.c echo.c env.c exit.c export.c pwd.c unset.c
+BUILTIN		:= cd.c echo.c env.c exit.c export.c pwd.c unset.c cd_utils.c
 
 ENV			:= env_init.c env_utils.c error.c free.c
 
@@ -33,7 +33,7 @@ INCS		:= $(addprefix ./includes/, $(INC))
 LIBNAME = libft/libft.a
 LIBPATH = libft/
 
-READLINE = -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
+READLINE = -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 # -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 # -lreadline -L ~/homebrew/opt/readline/lib -I ~/homebrew/opt/readline/include
 

@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:03:52 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/13 16:18:03 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:49:20 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	get_input_type(char *arg)
 	if (ft_isalpha(arg[i]) == 0 && arg[i] != '_')
 		return (write(2, "minishell: export: ", 20), write(2, "`", 1),
 			write(2, arg, ft_strlen(arg)), write(2, "'", 1), 
-			write(2, ": not a valid identifier\n", 26));
+			write(2, ": not a valid identifier\n", 26), 100);
 	++i;
 	while (arg[i] != '=' && arg[i] != '\0')
 	{
@@ -29,7 +29,7 @@ static int	get_input_type(char *arg)
 		if (ft_isalnum(arg[i]) == 0 && arg[i] != '_')
 			return (write(2, "minishell: export: ", 20), write(2, "`", 1),
 				write(2, arg, ft_strlen(arg)), write(2, "'", 1), 
-				write(2, ": not a valid identifier\n", 26));
+				write(2, ": not a valid identifier\n", 26), 100);
 		++i;
 	}
 	if (arg[i] == '=')
@@ -51,6 +51,7 @@ int	add_content_to_var(t_list **en, t_globvar *tmp, t_globvar *var)
 		free_globvar(var);
 		if (!tmp->value)
 			return (EXIT_FAILURE);
+		tmp->is_secret = 0;
 	}
 	else
 	{
@@ -71,11 +72,8 @@ int	update_var(t_list **en, t_globvar *tmp, t_globvar *var, int type)
 	{
 		if (type == 2 || type == 4)
 		{
-			free(tmp->value);
-			tmp->value = var->value;
-			free(var->name);
-			if (type == 2)
-				free(var);
+			export_swap(tmp, var, type);
+			tmp->is_secret = 0;
 		}
 	}
 	else
@@ -111,8 +109,10 @@ int	ft_export_var(int type, t_list **en, t_globvar *var)
 	*en = en_start;
 	if (type == 1)
 		return (add_content_to_var(en, tmp, var));
-	if (type == 2 || type == 3)
+	if (type == 2 || type == 3 || type == 4)
 		return (update_var(en, tmp, var, type));
+	if (type == 100)
+		return (free_globvar(var), EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
 
@@ -129,7 +129,7 @@ int	ft_export(char **args, t_list **en, int fd)
 	while (args[i])
 	{
 		var = NULL;
-		type = get_input_type(args[1]);
+		type = get_input_type(args[i]);
 		var = malloc(sizeof(t_globvar));
 		if (!var)
 			return (EXIT_FAILURE);

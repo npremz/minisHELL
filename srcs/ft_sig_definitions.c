@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:45:23 by npremont          #+#    #+#             */
-/*   Updated: 2024/03/12 16:52:13 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:48:24 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_define_ctrl_c(void)
 		write(2, "minishell: signals init failed.\n", 33);
 		exit(EXIT_FAILURE);
 	}
-
 }
 
 void	ft_define_ctrl_bs(void)
