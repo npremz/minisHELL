@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:08:28 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 13:18:25 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:41:14 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_or_and_cmd_condition(t_cmd_type operator_out,
 }
 
 static int	ft_exec_cmd_tree_rec(t_btree *cmd_tree, t_cmd_type operator_out,
-	int **fd_pipe_in, t_pid_env pid_env)
+	int **fd_pipe_in, int *pid_child_tab, t_list **env)
 {
 	t_bool		do_continue;
 	t_cmd_type	new_operator_out;
@@ -67,20 +67,20 @@ static int	ft_exec_cmd_tree_rec(t_btree *cmd_tree, t_cmd_type operator_out,
 	if (((t_cmd *)cmd_tree->item)->type == classic_cmd)
 	{
 		if (ft_init_exec(cmd_tree, operator_out, fd_pipe_in,
-				pid_env))
+				pid_child_tab, env))
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	new_operator_out = ((t_cmd *)cmd_tree->item)->type;
 	if (ft_exec_cmd_tree_rec(cmd_tree->left, new_operator_out, fd_pipe_in,
-			pid_env))
+			pid_child_tab, env))
 		return (EXIT_FAILURE);
-	if (ft_or_and_cmd_condition(new_operator_out, pid_env.pid_child_tab,
+	if (ft_or_and_cmd_condition(new_operator_out, pid_child_tab,
 			&do_continue))
 		return (EXIT_FAILURE);
 	if (do_continue == true)
 		if (ft_exec_cmd_tree_rec(cmd_tree->right, operator_out, fd_pipe_in,
-				pid_env))
+				pid_child_tab, env))
 			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -126,7 +126,7 @@ int	ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env)
 		return (EXIT_FAILURE);
 	pid_child_tab[nb_cmd + 1] = -42;
 	if (ft_exec_cmd_tree_rec(cmd_tree, operator_out,
-			&fd_pipe_in, (t_pid_env){pid_child_tab, env}))
+			&fd_pipe_in, pid_child_tab, env))
 		return (EXIT_FAILURE);
 	if (ft_wait_for_children(pid_child_tab))
 		return (EXIT_FAILURE);

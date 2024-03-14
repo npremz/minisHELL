@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 13:17:37 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:40:34 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ t_bool			ft_wildcard_cmp(char *with_wildcard, char *without_wildcard,
 int				ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree);
 int				ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env);
 int				ft_init_exec(t_btree *cmd_tree, t_cmd_type operator_out,
-					int **fd_pipe_in, t_pid_env pid_env);
+					int **fd_pipe_in, int *pid_child_tab, t_list **env);
 int				ft_launch_builtout(t_cmd *cmd, int **fd_pipe_in_out,
 					int *pid_child_tab, t_list **env);
 int				ft_launch_builtin(t_cmd *cmd, int **fd_pipe_in_out,

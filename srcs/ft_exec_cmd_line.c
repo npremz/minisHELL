@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 16:59:35 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:43:12 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ static int	ft_print_parsing_error(char *error_token)
 				return (EXIT_FAILURE);
 		}
 		else
-			if (ft_putstr_fd("ne", 2))
+			if (ft_putstr_fd("newline", 2))
 				return (EXIT_FAILURE);
-		if (ft_putendl_fd("newline", 2))
+		if (ft_putendl_fd("`", 2))
 			return (EXIT_FAILURE);
 		free(error_token);
 		return (EXIT_SUCCESS);
