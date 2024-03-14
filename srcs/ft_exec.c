@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:29:11 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/12 16:55:14 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:44:08 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,36 @@ static int	ft_exec_current_work_directory_path(t_cmd *cmd, t_list **env)
 	return (EXIT_SUCCESS);
 }
 
+static int	ft_look_for_directory(t_cmd *cmd, char **error_arg)
+{
+	int	i;
+	DIR	*directory_stream;
+
+	i = 0;
+	while (cmd->name[i] != '\0')
+		i++;
+	if (i != 0)
+		i--;
+	if (cmd->name[i] == '/')
+	{
+		*error_arg = ft_strdup(cmd->name);
+		if (error_arg == NULL)
+			return (EXIT_FAILURE);
+		directory_stream = opendir(cmd->name);
+		if (directory_stream == NULL)
+			return (EXIT_FAILURE);
+		errno = 202;
+		if (closedir(directory_stream))
+			return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	ft_exec(t_cmd *cmd, char **error_arg, t_list **env)
 {
+	if (ft_look_for_directory(cmd, error_arg))
+		return (EXIT_FAILURE);
 	if (ft_strncmp(cmd->name, "./", 2) == 0)
 	{
 		if (ft_exec_current_work_directory_path(cmd, env))
@@ -90,7 +118,7 @@ int	ft_exec(t_cmd *cmd, char **error_arg, t_list **env)
 			return (EXIT_FAILURE);
 	}
 	else
-		if (ft_exec_env_path(cmd, env))
+		if (cmd->name[0] != '\0' && ft_exec_env_path(cmd, env))
 			return (EXIT_FAILURE);
 	*error_arg = ft_strdup(cmd->name);
 	errno = 200;

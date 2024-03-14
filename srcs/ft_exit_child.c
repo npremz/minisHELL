@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 00:19:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 17:03:08 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:24:03 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,7 @@ static char	*ft_strerror(int errnum)
 	else if (errnum == 201)
 		return ("ambiguous redirect");
 	else if (errnum == 202)
-		return ("syntax error near unexpected token `('");
-	else if (errnum == 203)
-		return ("syntax error near unexpected token `)'");
-	else if (errnum == 204)
-		return ("syntax error near unexpected token `newline'");
-	else if (errnum == 204)
-		return ("syntax error near unexpected token `|'");
-	else if (errnum == 204)
-		return ("syntax error near unexpected token `||'");
-	else if (errnum == 204)
-		return ("syntax error near unexpected token `&&'");
+		return ("is a directory");
 	return ("unknowed code error");
 }
 

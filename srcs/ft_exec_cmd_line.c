@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:53:09 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 16:43:12 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:43:32 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int	ft_exec_cmd_line(char *command_line, t_list **env)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-//ft_lstiter(cmd_list, &printf_cmd);
-//ft_btree_apply_suffix(cmd_tree, &printf_cmd);
 // if (DEBUG_MODE)
 // 	ft_lstiter(cmd_list, &printf_cmd);
+//ft_lstiter(cmd_list, &printf_cmd);
+//ft_btree_apply_suffix(cmd_tree, &printf_cmd);

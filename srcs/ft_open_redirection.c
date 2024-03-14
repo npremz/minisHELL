@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:30:36 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 17:07:02 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:29:42 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	ft_open_redirection(t_cmd *cmd, char **error_arg, int *fd_in_out,
 		return (EXIT_FAILURE);
 	if (fd != -1)
 	{
-		if (fd_in_out[0] != -1 && close(fd_in_out[0]))
+		if (fd_in_out[0] != 0 && close(fd_in_out[0]))
 			return (EXIT_FAILURE);
 		fd_in_out[0] = fd;
 	}
@@ -118,7 +118,7 @@ int	ft_open_redirection(t_cmd *cmd, char **error_arg, int *fd_in_out,
 		return (EXIT_FAILURE);
 	if (fd != -1)
 	{
-		if (fd_in_out[1] != -1 && close(fd_in_out[1]))
+		if (fd_in_out[1] != 1 && close(fd_in_out[1]))
 			return (EXIT_FAILURE);
 		fd_in_out[1] = fd;
 	}
