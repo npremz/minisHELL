@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 09:45:52 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/13 17:43:57 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:17:00 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_launch_exec(t_cmd *cmd, int **fd_pipe_in_out,
 }
 
 int	ft_init_exec(t_btree *cmd_tree, t_cmd_type operator_out,
-	int **fd_pipe_in, int *pid_child_tab, t_list **env)
+	int **fd_pipe_in, t_pid_env pid_env)
 {
 	int	*fd_pipe_in_out[2];
 	int	*fd_pipe_out;
@@ -72,7 +72,7 @@ int	ft_init_exec(t_btree *cmd_tree, t_cmd_type operator_out,
 	fd_pipe_in_out[0] = *fd_pipe_in;
 	fd_pipe_in_out[1] = fd_pipe_out;
 	if (ft_launch_exec((t_cmd *)cmd_tree->item, fd_pipe_in_out,
-			pid_child_tab, env))
+			pid_env.pid_child_tab, pid_env.env))
 		return (EXIT_FAILURE);
 	*fd_pipe_in = fd_pipe_in_out[0];
 	return (EXIT_SUCCESS);

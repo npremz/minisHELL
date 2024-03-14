@@ -6,7 +6,7 @@
 /*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 02:07:40 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:49:52 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	ft_get_new_entry(char *wildcard_name, t_list **wildcard_value_list,
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-//differencier l erreur et l absence de dir avec errno
 
 static int	ft_add_new_entry_to_path_before(char *wildcard_name,
 	t_list **wildcard_bool_list, t_list **path_before)
