@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 22:23:38 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 18:50:25 by npremont         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:21:20 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int				ft_update_path_before(t_list **path_before,
 					t_list *wildcard_value_list);
 t_bool			ft_wildcard_cmp(char *with_wildcard, char *without_wildcard,
 					t_list *wildcard_list);
+void			ft_insertion_sort(t_list *list);
 
 int				ft_create_cmd_tree(t_list *cmd_list, t_btree **cmd_tree);
 int				ft_exec_cmd_tree(t_btree *cmd_tree, t_list **env);

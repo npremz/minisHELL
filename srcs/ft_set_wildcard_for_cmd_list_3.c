@@ -3,24 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_wildcard_for_cmd_list_3.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 21:52:24 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 14:13:17 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:47:35 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	**ft_malloc_new_arg_tab(char **tab, t_list *new_args)
+void	ft_insertion_sort(t_list *list)
+{
+	void	*temp_char;
+	t_list	*temp_list;
+
+	while (list != NULL)
+	{
+		temp_list = list;
+		while (list->prev != NULL
+			&& ft_strncmp((char *)list->content, (char *)list->prev->content,
+				ft_strlen((char *)list->content) + 1) < 0)
+		{
+			temp_char = list->content;
+			list->content = list->prev->content;
+			list->prev->content = temp_char;
+			list = list->prev;
+		}
+		list = temp_list->next;
+	}
+}
+
+static int	ft_malloc_new_arg_tab(char **tab, t_list *new_args,
+	char ***new_arg_tab)
 {
 	int	tab_size;
 
 	tab_size = 0;
 	while (tab[tab_size] != NULL)
 		tab_size++;
-	return ((char **)malloc((tab_size + ft_lstsize(new_args))
-			* sizeof(char *)));
+	*new_arg_tab = (char **)malloc((tab_size + ft_lstsize(new_args))
+			* sizeof(char *));
+	if (*new_arg_tab == NULL)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 static int	ft_update_cmd_arg(char *arg_name, t_cmd *cmd, t_list *new_args,
@@ -32,8 +57,8 @@ static int	ft_update_cmd_arg(char *arg_name, t_cmd *cmd, t_list *new_args,
 
 	pos_to_insert = -1;
 	i = -1;
-	new_arg_tab = ft_malloc_new_arg_tab(cmd->arg, new_args);
-	if (new_arg_tab == NULL)
+	ft_insertion_sort(new_args);
+	if (ft_malloc_new_arg_tab(cmd->arg, new_args, &new_arg_tab))
 		return (EXIT_FAILURE);
 	while (cmd->arg[++pos_to_insert] != arg_name)
 		new_arg_tab[pos_to_insert] = cmd->arg[pos_to_insert];

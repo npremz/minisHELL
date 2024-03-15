@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:30:36 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/14 18:29:42 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:36:12 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,8 @@ int	ft_set_pipe_fd(int *fd_pipe_in_out[2], int fd_in_out[2])
 
 static int	ft_is_an_ambiguous_red(char *red_name)
 {
-	char	*pt;
-
-	pt = ft_strnstr(red_name, ":ambiguous_redirect", ft_strlen(red_name));
-	if (pt != NULL && pt[ft_strlen(":ambiguous_redirect")] == '\0')
-	{
-		pt[0] = '\0';
+	if (red_name[0] == '\'')
 		return (true);
-	}
 	return (false);
 }
 
@@ -54,7 +48,7 @@ static int	ft_open_redirection_in(t_cmd *cmd, char **error_arg, int *fd_in,
 	while (cmd->in[i] != NULL)
 	{
 		if (ft_is_an_ambiguous_red(cmd->in[i]) == true)
-			return (errno = 201, *error_arg = ft_strdup(cmd->in[i]),
+			return (errno = 201, *error_arg = ft_strdup(cmd->in[i] + 1),
 				EXIT_FAILURE);
 		if (cmd->type_in[i] == redirection_in)
 		{
@@ -110,7 +104,7 @@ int	ft_open_redirection(t_cmd *cmd, char **error_arg, int *fd_in_out,
 		return (EXIT_FAILURE);
 	if (fd != -1)
 	{
-		if (fd_in_out[0] != 0 && close(fd_in_out[0]))
+		if (fd_in_out[0] != 0 && fd_in_out[0] != -1 && close(fd_in_out[0]))
 			return (EXIT_FAILURE);
 		fd_in_out[0] = fd;
 	}
@@ -118,7 +112,7 @@ int	ft_open_redirection(t_cmd *cmd, char **error_arg, int *fd_in_out,
 		return (EXIT_FAILURE);
 	if (fd != -1)
 	{
-		if (fd_in_out[1] != 1 && close(fd_in_out[1]))
+		if (fd_in_out[1] != 1 && fd_in_out[1] != -1 && close(fd_in_out[1]))
 			return (EXIT_FAILURE);
 		fd_in_out[1] = fd;
 	}

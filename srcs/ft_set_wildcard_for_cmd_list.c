@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_wildcard_for_cmd_list.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethomas <lethomas@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lethomas <lethomas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:36:12 by lethomas          #+#    #+#             */
-/*   Updated: 2024/03/07 17:11:01 by lethomas         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:59:26 by lethomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	ft_update_cmd_redirection(char **cmd_red_name,
 	else
 	{
 		cmd_red_name[pos_to_insert]
-			= ft_strjoin(cmd_red_name[pos_to_insert],
-				":ambiguous_redirect", true, false);
+			= ft_strjoin("'", cmd_red_name[pos_to_insert],
+				false, true);
 		if (cmd_red_name[pos_to_insert] == NULL)
 			return (EXIT_FAILURE);
 		ft_lstclear(&new_red, &free);
@@ -103,9 +103,10 @@ int	ft_set_wildcard_for_cmd(t_cmd *cmd)
 		if (ft_set_wildcard_for_cmd_redirection(wild_name, cmd->out,
 				&cmd->wildcard_out))
 			return (EXIT_FAILURE);
-	while (ft_has_a_wildcard(cmd->arg + 1, &cmd->wildcard_arg, &wild_name))
-		if (ft_set_wildcard_for_cmd_arg(wild_name, cmd))
-			return (EXIT_FAILURE);
+	if (cmd->arg != NULL)
+		while (ft_has_a_wildcard(cmd->arg + 1, &cmd->wildcard_arg, &wild_name))
+			if (ft_set_wildcard_for_cmd_arg(wild_name, cmd))
+				return (EXIT_FAILURE);
 	while (ft_has_a_wildcard((char *[2]){cmd->name, NULL},
 		&cmd->wildcard_name, &wild_name))
 		if (ft_set_wildcard_for_cmd_name(cmd))
